@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrar Usuario</title>
+</head>
+<style>
+    *{
+        padding: 0;
+        margin: 0;
+    }
+
+    body{
+        background-color:lavender;
+    }
+    
+    h1{
+        text-align: center;
+        margin: 10px;
+        color: rgb(2, 2, 2);
+        padding: 10px;
+    }  
+
+    .formulario{
+        width: 30%;
+        margin: 5px  auto;
+        background-color: white;
+        padding: 30px;
+        text-align: center;
+        border: 2px solid gainsboro;
+        display: flex;
+        flex-direction: column;
+        font-size: 19px;
+    }
+
+    .formulario_input{
+        text-align: center;
+        width: 350px;
+        border:none;
+        margin: 10px;
+        padding: 10px;
+    }
+
+    .formulario_input:hover{
+        background-color: grey;
+        color: white;
+    }
+    
+    .formulario_input:focus{
+        background-color:lavender;
+    }
+
+    .formulario_input:hover option {
+        color: black;
+    }
+
+    #button {
+        border-radius: 7px;
+        padding: 10px;
+        margin: 10px 80px;
+        font-size: 19px;
+    }
+
+    #button:hover {
+        border-radius: 10px;
+        background-color: black;
+        color: white;
+        margin: 11px 70px;
+    }
+</style>
+<body>
+    <h1 id="h1-formulario">Crear Usuario</h1>
+    <form class="formulario" >
+        <label>DNI: </label>
+        <input class="formulario_input" type="number" placeholder="Escribe tu numero de identificacion aqui">
+        <br>
+        <label>Nombre: </label>
+        <input class="formulario_input" type="text" placeholder="Escribe tu nombre aqui">
+        <br>
+        <label>Apellido: </label>
+        <input class="formulario_input" type="text" placeholder="Escribe tu apellido aqui">
+        <br>
+        <label>Correo: </label>
+        <input class="formulario_input" type="email" placeholder="Escribe tu correo aqui">
+        <br>
+        <label>Telefono: </label>
+        <input class="formulario_input" type="number" placeholder="Escribe tu numero telefonico aqui">
+        <br>
+        <label>Cargo: </label>
+        <select class="formulario_input" required>
+            <option>Seleccione</option>
+            <option value="DOCENTE">DOCENTE</option>
+            <option value="ADMINISTRADOR">ADMINISTRADOR</option>
+            <option value="SECRETARIA">SECRETARIA</option>
+        </select>
+        <br>
+        <label>Contraseña: </label>
+        <input class="formulario_input" type="password" placeholder="Escribe una Contraseña">
+        <br>
+        <input id="button" type= "button" value= "Crear Cuenta" />
+    </form>
+</body>
+</html>
