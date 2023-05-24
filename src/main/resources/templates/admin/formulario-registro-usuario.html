@@ -11,7 +11,7 @@
     }
 
     body{
-        background-color:lavender;
+        background-color:rgba(198, 195, 195, 0.785);
     }
     
     h1{
@@ -27,20 +27,21 @@
         background-color: white;
         padding: 25px;
         text-align: center;
-        border: 2px solid gainsboro;
+        border: 2px solid rgb(173, 173, 173);
         display: flex;
         flex-direction: column;
         font-size: 19px;
         margin-bottom: 40px;
+        border-radius: 20px;
     }
 
     .formulario_input{
         text-align: center;
-        width: 350px;
         border:none;
         margin: 10px;
         padding: 10px;
         padding-top: 3px;
+        background-color:lavender;
     }
     
     .formulario_input:focus{
@@ -63,6 +64,7 @@
         background-color: black;
         color: white;
         margin: 11px 70px;
+        margin-bottom: 9px;
     }
 
     #mensaje_error {
@@ -70,6 +72,32 @@
         font-size: 14px;
         margin-top: 5px;
     }
+
+    #telefono {
+        width: 350px;
+        text-align: left;
+        border:none;
+        margin: 10px;
+        padding: 10px;
+        padding-top: 3px;
+        text-indent: 20px;
+    }
+
+    #telefono-div {
+        align-items: center;
+        display: flex;
+    }
+
+    input[readonly] {
+        opacity: 0.5;
+        text-align: right;
+        width: 50px;
+        border:none;
+        margin: 10px;
+        padding: 10px;
+        padding-top: 3px;
+    }
+
 </style>
 <script>
     function disableButton() {
@@ -86,19 +114,22 @@
             <br>
         </div>
         <label>DNI: </label>
-        <input class="formulario_input" type="number" th:field="*{dni}" placeholder="Escribe tu numero de identificacion aqui">
+        <input class="formulario_input" type="number" th:field="*{dni}" placeholder="Escribe tu numero de identificacion aqui" required>
         <br>
         <label>Nombre: </label>
-        <input class="formulario_input" type="text" th:field="*{name}" placeholder="Escribe tu nombre aqui">
+        <input class="formulario_input" type="text" th:field="*{name}" placeholder="Escribe tu nombre aqui" required>
         <br>
         <label>Apellido: </label>
-        <input class="formulario_input" type="text" th:field="*{lastName}" placeholder="Escribe tu apellido aqui">
+        <input class="formulario_input" type="text" th:field="*{lastName}" placeholder="Escribe tu apellido aqui" required>
         <br>
         <label>Correo: </label>
-        <input class="formulario_input" type="email" th:field="*{mail}" placeholder="Escribe tu correo aqui">
+        <input class="formulario_input" type="email" th:field="*{mail}" placeholder="Escribe tu correo aqui" required>
         <br>
         <label>Telefono: </label>
-        <input class="formulario_input" type="number" th:field="*{cellPhone}" placeholder="Escribe tu numero telefonico aqui">
+        <div id="telefono-div">
+        <input type="text" value="+57" readonly>
+        <input class="formulario_input" type="number" id="telefono" th:field="*{cellPhone}" placeholder="Escribe tu numero telefonico" required>
+        </div>
         <br>
         <label>Cargo: </label>
         <select class="formulario_input" th:field="*{employeeRole}" required>
@@ -109,7 +140,7 @@
         </select>
         <br>
         <label>Contraseña: </label>
-        <input class="formulario_input" type="password" th:field="*{password}" placeholder="Escribe una Contraseña">
+        <input class="formulario_input" type="password" th:field="*{password}" placeholder="Escribe una Contraseña" required>
         <input id="button" type="submit" value="Crear Cuenta" />
     </form>
 </body>
