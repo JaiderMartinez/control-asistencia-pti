@@ -1,6 +1,6 @@
 package com.colegio.asistencia.mapper.request;
 
-import com.colegio.asistencia.dto.UserSaveRequestDto;
+import com.colegio.asistencia.dto.request.UserSaveRequestDto;
 import com.colegio.asistencia.entity.UserEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

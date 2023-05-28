@@ -1,4 +1,4 @@
-package com.colegio.asistencia.dto;
+package com.colegio.asistencia.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,6 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UserSaveRequestDto {
+
     private Long dni;
     private String name;
     private String lastName;

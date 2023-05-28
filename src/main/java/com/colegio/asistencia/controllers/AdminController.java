@@ -1,6 +1,6 @@
 package com.colegio.asistencia.controllers;
 
-import com.colegio.asistencia.dto.UserSaveRequestDto;
+import com.colegio.asistencia.dto.request.UserSaveRequestDto;
 import com.colegio.asistencia.exceptions.FieldStructInvalidException;
 import com.colegio.asistencia.service.IAdminService;
 import com.colegio.asistencia.exceptions.EmptyFieldException;

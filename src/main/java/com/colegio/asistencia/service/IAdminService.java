@@ -1,6 +1,6 @@
 package com.colegio.asistencia.service;
 
-import com.colegio.asistencia.dto.UserSaveRequestDto;
+import com.colegio.asistencia.dto.request.UserSaveRequestDto;
 
 public interface IAdminService {
 

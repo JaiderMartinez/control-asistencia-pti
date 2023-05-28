@@ -1,6 +1,6 @@
 package com.colegio.asistencia.service.impl;
 
-import com.colegio.asistencia.dto.UserSaveRequestDto;
+import com.colegio.asistencia.dto.request.UserSaveRequestDto;
 import com.colegio.asistencia.entity.EmployeeEntity;
 import com.colegio.asistencia.entity.UserEntity;
 import com.colegio.asistencia.exceptions.EmptyFieldException;
@@ -28,11 +28,8 @@ public class AdminUseCase implements IAdminService {
                 userSaveRequest.getPassword())) {
             throw new FieldStructInvalidException("El estructura del dni, telefono o contraseña pueden ser incorrectas");
         }
-        UserEntity userRequestEntity = userRequestMapper.toUserEntity(userSaveRequest);
-        EmployeeEntity employeeRequestEntity = new EmployeeEntity(userRequestEntity.getEmployeeEntity().getDni(),
-                userRequestEntity.getEmployeeEntity().getName(), userRequestEntity.getEmployeeEntity().getLastName(),
-                userRequestEntity.getEmployeeEntity().getMail(), userRequestEntity.getEmployeeEntity().getCellPhone());
-        employeePersistence.save(employeeRequestEntity);
+        final UserEntity userRequestEntity = userRequestMapper.toUserEntity(userSaveRequest);
+        employeePersistence.save(userRequestEntity.getEmployeeEntity());
         userPersistence.save(userRequestEntity);
     }
 
