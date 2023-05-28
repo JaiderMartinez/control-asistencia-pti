@@ -1,7 +1,6 @@
 package com.colegio.asistencia.service.impl;
 
 import com.colegio.asistencia.dto.request.UserSaveRequestDto;
-import com.colegio.asistencia.entity.EmployeeEntity;
 import com.colegio.asistencia.entity.UserEntity;
 import com.colegio.asistencia.exceptions.EmptyFieldException;
 import com.colegio.asistencia.exceptions.FieldStructInvalidException;
@@ -12,6 +11,8 @@ import com.colegio.asistencia.service.IAdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.regex.Pattern;
+
 @Service
 @RequiredArgsConstructor
 public class AdminUseCase implements IAdminService {
@@ -19,13 +20,17 @@ public class AdminUseCase implements IAdminService {
     private final IUserRepository userPersistence;
     private final IEmployeeRepository employeePersistence;
     private final IUserRequestMapper userRequestMapper;
+    private static final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
 
     @Override
     public void saveUser(UserSaveRequestDto userSaveRequest) {
+        System.out.println(isFieldsAreEmpty(userSaveRequest) + " " +
+                isValidFieldStructDniAndCellPhone(userSaveRequest.getDni(), userSaveRequest.getCellPhone()) + " " +
+                isValidFieldPassword(userSaveRequest.getPassword()));
         if (isFieldsAreEmpty(userSaveRequest)) {
             throw new EmptyFieldException("Los campos no pueden estar vacios");
-        } else if (!isValidFieldStructDniAndCellPhoneAndPassword(userSaveRequest.getDni(), userSaveRequest.getCellPhone(),
-                userSaveRequest.getPassword())) {
+        } else if (isValidFieldStructDniAndCellPhone(userSaveRequest.getDni(), userSaveRequest.getCellPhone()) ||
+                            isValidFieldPassword(userSaveRequest.getPassword())) {
             throw new FieldStructInvalidException("El estructura del dni, telefono o contraseña pueden ser incorrectas");
         }
         final UserEntity userRequestEntity = userRequestMapper.toUserEntity(userSaveRequest);
@@ -43,7 +48,17 @@ public class AdminUseCase implements IAdminService {
                 user.getDni() == null);
     }
 
-    private boolean isValidFieldStructDniAndCellPhoneAndPassword(Long dni, String cellPhone, String password) {
-        return password.contains(".")  || dni.toString().length() <= 10 || cellPhone.length() == 10;
+    private boolean isValidFieldStructDniAndCellPhone(Long dni, String cellPhone) {
+        if (dni.toString().length() <= 10 && cellPhone.length() == 10) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean isValidFieldPassword(String password) {
+        if (Pattern.matches(PASSWORD_PATTERN, password) && password.length() <= 50) {
+            return false;
+        }
+        return true;
     }
 }
