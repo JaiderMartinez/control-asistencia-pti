@@ -1,11 +1,9 @@
 <!DOCTYPE html>
-<html lang="es">
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
     
     <head>
         <meta charset="UTF-8"> 
         <title>Inicio</title>
-        <link rel="stylesheet" href="reset.css">
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
     </head>
     <style>
         header {
@@ -123,7 +121,6 @@
             list-style-type: none;
             display: flex;
             justify-content: center;
-            
         }
 
         .list-ambientes ul li:hover {
@@ -142,6 +139,12 @@
             color:#FFFFFF;
             font-size: 13px;
             margin:20px;
+        }
+
+        #message-empty {
+            list-style-type: none;
+            display: flex;
+            justify-content: center;
         }
 
     </style>
@@ -198,9 +201,12 @@
                 <div class="ambientes">
                   <!-- Aquí va tu código HTML para la lista de ambientes de PTI -->
                     <h2>Potenciando Talento e Intereses</h2>
-                    <div class="list-ambientes">
+                    <div id="message-empty" th:if="${message != null}">
+                        <span th:text="${message}"></span>
+                    </div>
+                    <div class="list-ambientes" th:each="environments: ${listOfEnvironmentsPTI}">
                         <ul style="padding-left: 0px;">
-                            <li>Ambiente 1</li>
+                            <li th:text="${environments.name}"></li>
                         </ul>
                     </div>
                 </div>
