@@ -1,6 +1,6 @@
 package com.colegio.asistencia.controllers;
 
-import com.colegio.asistencia.constants.ConstantsStatic;
+import com.colegio.asistencia.constants.Constants;
 import com.colegio.asistencia.dto.request.CreateEnvironmentPtiRequestDto;
 import com.colegio.asistencia.exceptions.EmptyFieldException;
 import com.colegio.asistencia.exceptions.FieldStructInvalidException;
@@ -24,7 +24,7 @@ public class SecretaryController {
     @GetMapping(value = "show-form-environments")
     public String showFormCreateEnvironmentsPTI(Model model) {
         model.addAttribute("createEnvironmentPtiRequestDto", new CreateEnvironmentPtiRequestDto());
-        return ConstantsStatic.PATH_HTML_FORM_REGISTER_ENVIRONMENT.getMessage();
+        return Constants.PATH_HTML_FORM_REGISTER_ENVIRONMENT.getMessage();
     }
 
     @PostMapping(value = "create-environment")
@@ -34,7 +34,7 @@ public class SecretaryController {
             return "redirect:/asistencia/show-form-environments";
         } catch (EmptyFieldException | FieldStructInvalidException | PersonNotExistsException e) {
             model.addAttribute("message", e.getMessage());
-            return ConstantsStatic.PATH_HTML_FORM_REGISTER_ENVIRONMENT.getMessage();
+            return Constants.PATH_HTML_FORM_REGISTER_ENVIRONMENT.getMessage();
         }
     }
 

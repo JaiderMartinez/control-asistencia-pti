@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
 public interface IUserRepository extends JpaRepository<UserEntity, Long> {
 
     UserEntity findByEmployeeEntity(EmployeeEntity employeeEntity);
+
+    UserEntity findByEmployeeEntityDni(Long dni);
 }

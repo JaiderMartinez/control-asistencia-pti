@@ -1,6 +1,6 @@
 package com.colegio.asistencia.constants;
 
-public enum ConstantsStatic {
+public enum Constants {
 
     MESSAGE_MODEL_ATTRIBUTE("message"),
     MESSAGE_ENVIRONMENTS_OF_PTI_EMPTY("No se encontro ningun ambiente"),
@@ -10,7 +10,7 @@ public enum ConstantsStatic {
 
     private final String message;
 
-    ConstantsStatic(String message) {
+    Constants(String message) {
         this.message = message;
     }
 

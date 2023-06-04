@@ -171,31 +171,31 @@
         <main>
             <div class="container">
                 <div class="perfil">
-                  <!-- Aquí va tu código HTML para el perfil del estudiante -->
+                  <!-- Aquí va tu código HTML para el perfil del user authenticated -->
                     <h2>Perfil del Usuario</h2>
                     <div class="info">
                         <label>DNI: </label>
-                        <span></span>
+                        <span th:text="${userAsEmployeeResponseDto.dni}"></span>
                     </div>
                     <div class="info">
                         <label>Nombre: </label>
-                        <span></span>
+                        <span th:text="${userAsEmployeeResponseDto.name}"></span>
                     </div>
                     <div class="info">
                         <label>Apellido: </label>
-                        <span></span>
+                        <span th:text="${userAsEmployeeResponseDto.lastName}"></span>
                     </div>
                     <div class="info">
                         <label>Correo: </label>
-                        <span></span>
+                        <span th:text="${userAsEmployeeResponseDto.mail}"></span>
                     </div>
                     <div class="info">
                         <label>Teléfono: </label>
-                        <span></span>
+                        <span th:text="${userAsEmployeeResponseDto.cellPhone}"></span>
                     </div>
                     <div class="info">
                         <label>Cargo: </label>
-                        <span></span>
+                        <span th:text="${userAsEmployeeResponseDto.employeeRole}"></span>
                     </div>
                 </div>
                 <div class="ambientes">
