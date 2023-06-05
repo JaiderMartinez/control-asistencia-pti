@@ -100,53 +100,54 @@
             top: 50%;  /* Coloca el elemento en el 50% de la parte superior de la página */
             left: 50%;  /* Coloca el elemento en el 50% del lado izquierdo de la página */
             transform: translate(-50%, -50%);  /* Centra el elemento en base a su propio tamaño */
-            wi
-    }
+        }
     </style>
     <body>
-        <form class="formulario-search"  th:action="@{/asistencia/search-student}" th:object="${searchByDniStudentsRequestDto}" method="post">
-            <label>Buscar </label>
-            <input id="search" type="number" th:field="*{dniStudent}" placeholder="search by dni" required>
-            <button type="submit" class="search-btn">Buscar</button>
-        </form>
-
-        <div id="message-empty" th:if="${message != null}">
-            <span th:text="${message}"></span>
-        </div>
-        <div class="container-list-students" th:each="student: ${listOfStudents}">
-            <div class="profile">
-                <div class="profile-info">
-                    <div class="profile-field">
-                        <label>DNI:</label>
-                        <span th:text="${student.dniStudent}"></span>
+        <main>
+            <form class="formulario-search"  th:action="@{/asistencia/search-student}" th:object="${searchByDniStudentsRequestDto}" method="post">
+                <label>Buscar </label>
+                <input id="search" type="number" th:field="*{dniStudent}" placeholder="search by dni" required>
+                <button type="submit" class="search-btn">Buscar</button>
+            </form>
+    
+            <div id="message-empty" th:if="${message != null}">
+                <span th:text="${message}"></span>
+            </div>
+            <div class="container-list-students" th:each="student: ${listOfStudents}">
+                <div class="profile">
+                    <div class="profile-info">
+                        <div class="profile-field">
+                            <label>DNI:</label>
+                            <span th:text="${student.dniStudent}"></span>
+                        </div>
+                        <div class="profile-field">
+                            <label>Nombre:</label>
+                            <span th:text="${student.name}"></span>
+                        </div>
+                        <div class="profile-field">
+                            <label>Grado:</label>
+                            <span th:text="${student.grado}"></span>
+                        </div>
+                        <div class="profile-field">
+                            <label>Número de contacto:</label>
+                            <span th:text="${student.contactNumber}"></span>
+                        </div>
+                        <div class="profile-field">
+                            <label>Dirección de residencia:</label>
+                            <span th:text="${student.residenceAddress}"></span>
+                        </div>
+                        <div class="profile-field">
+                            <label>Fecha de nacimiento:</label>
+                            <span th:text="${student.birthdate}"></span>
+                        </div>
                     </div>
-                    <div class="profile-field">
-                        <label>Nombre:</label>
-                        <span th:text="${student.name}"></span>
+                    <div class="profile-actions">
+                        <a class="btn btn-warning" th:href="@{'/editarUsuario/' + ${student.dniStudent}}"><input type="button" value="EDITAR"></a>
+                        <a class="btn btn-danger" th:href="@{'/eliminarUsuario/' + ${student.dniStudent}}" onclick="return confirm('¿Estás seguro de eliminar este registro?');"><input type="button" value="ELIMINAR"></a>
                     </div>
-                    <div class="profile-field">
-                        <label>Grado:</label>
-                        <span th:text="${student.grado}"></span>
-                    </div>
-                    <div class="profile-field">
-                        <label>Número de contacto:</label>
-                        <span th:text="${student.contactNumber}"></span>
-                    </div>
-                    <div class="profile-field">
-                        <label>Dirección de residencia:</label>
-                        <span th:text="${student.residenceAddress}"></span>
-                    </div>
-                    <div class="profile-field">
-                        <label>Fecha de nacimiento:</label>
-                        <span th:text="${student.birthdate}"></span>
-                    </div>
-                </div>
-                <div class="profile-actions">
-                    <a class="btn btn-warning" th:href="@{'/editarUsuario/' + ${student.dniStudent}}"><input type="button" value="EDITAR"></a>
-                    <a class="btn btn-danger" th:href="@{'/eliminarUsuario/' + ${student.dniStudent}}" onclick="return confirm('¿Estás seguro de eliminar este registro?');"><input type="button" value="ELIMINAR"></a>
                 </div>
             </div>
-        </div>
+        </main>
 
     </body>
 </html>
