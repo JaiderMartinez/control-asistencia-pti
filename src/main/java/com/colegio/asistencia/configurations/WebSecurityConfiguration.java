@@ -57,8 +57,9 @@ public class WebSecurityConfiguration {
                 .usernameParameter("username").passwordParameter("password")
                 .defaultSuccessUrl("/asistencia/index", true)
                 .failureUrl("/asistencia/login?error")
-                .and().logout()
-                .logoutSuccessUrl("/asistencia/login").permitAll()
+                .and().logout().logoutUrl("/logout")  // Especifica la URL de cierre de sesión
+                .logoutSuccessUrl("/login")  // Redirige a la página de inicio de sesión predeterminada
+                .permitAll()
                 .and().build();
     }
 }

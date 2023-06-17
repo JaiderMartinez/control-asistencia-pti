@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="es">
     
     <head>
         <meta charset="UTF-8"> 
@@ -147,6 +147,9 @@
             justify-content: center;
         }
 
+        .enlaces:hover {
+            color: rgb(6, 144, 218);
+        }
     </style>
 
     <body>
@@ -159,12 +162,15 @@
             <div class="menu">
                 <!-- Aquí va tu código HTML para el menú -->
                 <ul class="opciones-menu">
-                    <li>Menú Item 1</li>
-                    <li>Menú Item 2</li>
-                    <li>Menú Item 3</li>
+                    <li>
+                        <a th:href="@{/asistencia/form-user}" class="enlaces">Registrar usuario</a></li>
+                    <li>
+                        <a th:href="@{/asistencia/list-students}" class="enlaces">Buscar estudiantes</a></li>
+                    <li>
+                        <a th:href="@{/asistencia/show-form-environments}" class="enlaces">Registrar ambientes</a></li>
                 </ul>
                 <!-- Botón de "Cerrar sesión" -->
-                <button class="cerrar-sesion">Cerrar sesión</button>
+                <a th:href="@{/logout}" class="cerrar-sesion">Cerrar sesión</a>
             </div>
         </header>
 

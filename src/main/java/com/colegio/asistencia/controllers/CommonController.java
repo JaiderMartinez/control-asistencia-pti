@@ -8,6 +8,7 @@ import com.colegio.asistencia.dto.response.SearchFoundStudentResponseDto;
 import com.colegio.asistencia.exceptions.DataNotFoundException;
 import com.colegio.asistencia.service.ICommonService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,12 +27,14 @@ public class CommonController {
     private final ICommonService commonService;
 
     @GetMapping(value = "list-students")
+    @PreAuthorize(value = "hasRole('ADMINISTRADOR') or hasRole('SECRETARIA')")
     public String showViewSearchStudentsByDni(Model model) {
         model.addAttribute("searchByDniStudentsRequestDto", new SearchByDniStudentsRequestDto());
         return Constants.PATH_HTML_SEARCH_STUDENTS_BY_DNI.getMessage();
     }
 
     @PostMapping(value = "search-student")
+    @PreAuthorize(value = "hasRole('ADMINISTRADOR') or hasRole('SECRETARIA')")
     public String listEmployee(@ModelAttribute("searchByDniStudentsRequestDto") SearchByDniStudentsRequestDto searchStudents, Model model) {
         try {
             final List<SearchFoundStudentResponseDto> listOfSearchFoundForStudents =  commonService.findByDniStudentStartingWith(searchStudents.getDniStudent());
@@ -44,6 +47,7 @@ public class CommonController {
     }
 
     @GetMapping(value = "index")
+    @PreAuthorize(value = "hasRole('ADMINISTRADOR') or hasRole('SECRETARIA') or hasRole('DOCENTE')")
     public String showViewIndex(Model model) {
         try {
             String dniFromUserAuthenticated = SecurityContextHolder.getContext().getAuthentication().getName();

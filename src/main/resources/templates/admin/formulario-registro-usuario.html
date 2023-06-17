@@ -106,6 +106,13 @@
         margin: 0;
         }
 
+        #mensaje_exitoso p {
+            background-color: #56ac10;
+            color: white;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
     </style>
 
     <script>
@@ -119,11 +126,17 @@
     <body>
         <main>
             <h1>Crear Usuario</h1>
-        <form class="formulario" th:action="@{/asistencia/save-user}" th:object="${userSaveRequestDto}" method="post" onsubmit="disableButton()" >
+        <form class="formulario" th:action="@{/asistencia/usuario}" th:object="${userSaveRequestDto}" method="post" onsubmit="disableButton()" >
             <div id="mensaje_error" th:if="${message != null}">
                 <p th:text="${message}"></p>
                 <br>
             </div>
+
+            <div id="mensaje_exitoso" th:if="${successfulMessage != null}">
+                <p th:text="${successfulMessage}"></p>
+                <br>
+            </div>
+
             <label>DNI: </label>
             <input class="formulario_input" type="number" th:field="*{dni}" placeholder="Escribe tu numero de identificacion aqui" required>
             <br>
