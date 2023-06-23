@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Error 403 - Acceso no autorizado</title>
+</head>
+<style>
+    body{
+      font-family: 'Ropa Sans', sans-serif;
+      margin-top: 30px;
+      background-color: #F0CA00;
+      background-color: #F3661C;
+      text-align: center;
+      color: #fff;
+    }
+    .error-heading{
+      margin: 50px auto;
+      width: 250px;
+      border: 5px solid #fff;
+      font-size: 126px;
+      line-height: 126px;
+      border-radius: 30px;
+      text-shadow: 6px 6px 5px #000;
+    }
+    .error-heading img{
+      width: 100%;
+    }
+    .error-main h1{
+      font-size: 72px;
+      margin: 0px;
+      color: #F3661C;
+      text-shadow: 0px 0px 5px #fff;
+    }
+
+    h1 {
+      font-size: 24px;
+      color: #ff0000;
+      margin-top: 0;
+    }
+
+    .button {
+      display: inline-block;
+      background-color: #ffffff;
+      color: #F3661C;
+      padding: 10px 20px;
+      border-radius: 4px;
+      text-decoration: none;
+      margin-top: 20px;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+    }
+
+    .button.show {
+      opacity: 1;
+    }
+
+    p {
+      font-size: 18px;
+      color: #ffffff;
+    }
+</style>
+<body>
+    <div class="error-main">
+      <h1>Oops!</h1>
+      <div class="error-heading">403</div>
+      <p>You do not have permission to access the document or program that you requested.</p>
+      <h3>Error 403 - Acceso no autorizado</h3>
+      <p>No tienes el rol requerido para realizar esta acción.</p>
+      <a th:href="@{/asistencia/index}" class="button">Volver a la página principal</a>
+      <p>Lo redireccionaremos a la pagina de Inicio</p>
+    </div>
+
+  <script th:inline="javascript">
+    // Mostrar el botón después de unos segundos
+    setTimeout(function() {
+      var button = document.querySelector('.button');
+      button.classList.add('show');
+    }, 3000);
+
+    // Redireccionar después de unos segundos
+    setTimeout(function() {
+      window.location.href = /*[[@{/asistencia/index}]]*/ '';
+    }, 8000); // Cambia el valor "15000" a la cantidad de milisegundos que desees (9 segundos en este ejemplo)
+  </script>
+</body>
+</html>

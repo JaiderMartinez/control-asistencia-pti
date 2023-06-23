@@ -4,14 +4,25 @@ import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @Controller
 public class ErrorControllerApp implements ErrorController {
 
+    private static final String STATUS_PAGE_NOT_FOUND_PATH = "error/status-not-found";
+    private static final String STATUS_PAGE_FORBIDDEN_PATH = "error/status-forbidden";
+    private static final String STATUS_PAGE_INTERNAL_SERVER_ERROR_PATH = "error/status-internal-server-error";
+
     @RequestMapping("/error")
-    public String error(HttpServletRequest request) {
-        // Lógica para manejar el error 404 aquí
-        return "error/errorNotFound"; // Nombre de la vista de error personalizada
+    public String statusError(HttpServletRequest request) {
+        int statusCode = (int) request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
+        if (statusCode == HttpServletResponse.SC_NOT_FOUND) {
+            return STATUS_PAGE_NOT_FOUND_PATH;
+        } else if (statusCode == HttpServletResponse.SC_FORBIDDEN) {
+            return STATUS_PAGE_FORBIDDEN_PATH;
+        }
+        return STATUS_PAGE_INTERNAL_SERVER_ERROR_PATH;
     }
 }
