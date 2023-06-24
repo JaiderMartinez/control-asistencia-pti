@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="es">
-    
     <head>
         <meta charset="UTF-8"> 
         <title>Inicio</title>
     </head>
     <style>
+        body {
+            margin: 0px;
+        }
+
         header {
             background-color: #0B3A4D;
             padding: 20px 0;
@@ -50,6 +53,13 @@
             margin-right: 30px;
             margin-left: 30px;
             cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .opciones-menu li a {
+            text-decoration: none; /* Quita el subrayado del enlace */
+            color: white; /* Establece el color de las letras */
         }
 
         .opciones-menu li:hover {
@@ -58,6 +68,15 @@
             margin-left: 30px;
             color: rgb(6, 144, 218);
             cursor: pointer;
+        }
+
+        .opciones-menu li a:hover {
+            color: rgb(6, 144, 218); /* Cambia el color del texto al pasar el cursor sobre el enlace */
+        }
+
+        .menu a {
+            text-decoration: none; /* Quita el subrayado del enlace */
+            color: white; /* Establece el color de las letras */
         }
 
         .cerrar-sesion {
@@ -163,11 +182,11 @@
                 <!-- Aquí va tu código HTML para el menú -->
                 <ul class="opciones-menu">
                     <li>
-                        <a th:href="@{/asistencia/form-user}" class="enlaces">Registrar usuario</a></li>
+                        <a th:href="@{${formUserUrl}}" class="enlaces">Registrar usuario</a></li>
                     <li>
-                        <a th:href="@{/asistencia/list-students}" class="enlaces">Buscar estudiantes</a></li>
+                        <a th:href="@{${formSearchStudentsUrl}}" class="enlaces">Buscar estudiantes</a></li>
                     <li>
-                        <a th:href="@{/asistencia/show-form-environments}" class="enlaces">Registrar ambientes</a></li>
+                        <a th:href="@{${formEnvironmentsUrl}}" class="enlaces">Registrar ambientes</a></li>
                 </ul>
                 <!-- Botón de "Cerrar sesión" -->
                 <a th:href="@{/logout}" class="cerrar-sesion">Cerrar sesión</a>

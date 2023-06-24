@@ -1,6 +1,7 @@
 package com.colegio.asistencia.controllers;
 
-import com.colegio.asistencia.constants.Constants;
+import com.colegio.asistencia.constants.FilePathConstants;
+import com.colegio.asistencia.constants.MessageConstants;
 import com.colegio.asistencia.dto.request.CreateEnvironmentPtiRequestDto;
 import com.colegio.asistencia.exceptions.EmptyFieldException;
 import com.colegio.asistencia.exceptions.FieldStructInvalidException;
@@ -26,7 +27,7 @@ public class SecretaryController {
     @PreAuthorize(value = "hasRole('SECRETARIA')")
     public String showFormCreateEnvironmentsPTI(Model model) {
         model.addAttribute("createEnvironmentPtiRequestDto", new CreateEnvironmentPtiRequestDto());
-        return Constants.PATH_HTML_FORM_REGISTER_ENVIRONMENT.getMessage();
+        return FilePathConstants.PATH_FILE_TEMPLATES_HTML_FORM_REGISTER_ENVIRONMENT.getMessage();
     }
 
     @PostMapping(value = "create-environment")
@@ -36,8 +37,8 @@ public class SecretaryController {
             secretaryService.saveEnvironmentPti(createEnvironmentPtiRequestDto);
             return "redirect:/asistencia/show-form-environments";
         } catch (EmptyFieldException | FieldStructInvalidException | PersonNotExistsException e) {
-            model.addAttribute("message", e.getMessage());
-            return Constants.PATH_HTML_FORM_REGISTER_ENVIRONMENT.getMessage();
+            model.addAttribute(MessageConstants.MESSAGE_MODEL_ATTRIBUTE.getMessage(), e.getMessage());
+            return FilePathConstants.PATH_FILE_TEMPLATES_HTML_FORM_REGISTER_ENVIRONMENT.getMessage();
         }
     }
 

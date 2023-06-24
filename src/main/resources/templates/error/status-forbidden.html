@@ -63,10 +63,9 @@
     <div class="error-main">
       <h1>Oops!</h1>
       <div class="error-heading">403</div>
-      <p>You do not have permission to access the document or program that you requested.</p>
       <h3>Error 403 - Acceso no autorizado</h3>
       <p>No tienes el rol requerido para realizar esta acción.</p>
-      <a th:href="@{/asistencia/index}" class="button">Volver a la página principal</a>
+      <a th:href="@{/asistencia/comun/inicio}" class="button">Volver a la página principal</a>
       <p>Lo redireccionaremos a la pagina de Inicio</p>
     </div>
 
@@ -79,7 +78,7 @@
 
     // Redireccionar después de unos segundos
     setTimeout(function() {
-      window.location.href = /*[[@{/asistencia/index}]]*/ '';
+      window.location.href = /*[[@{/asistencia/comun/inicio}]]*/ '';
     }, 8000); // Cambia el valor "15000" a la cantidad de milisegundos que desees (9 segundos en este ejemplo)
   </script>
 </body>
