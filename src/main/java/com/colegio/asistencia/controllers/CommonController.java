@@ -32,7 +32,7 @@ public class CommonController {
     @PreAuthorize(value = "hasRole('ADMINISTRADOR') or hasRole('SECRETARIA')")
     public String showViewSearchStudentsByDni(Model model) {
         model.addAttribute("searchByDniStudentsRequestDto", new SearchByDniStudentsRequestDto());
-        return FilePathConstants.PATH_FILE_TEMPLATES_HTML_SEARCH_STUDENTS_BY_DNI.getMessage();
+        return FilePathConstants.PATH_TEMPLATE_HTML_SEARCH_STUDENTS_BY_DNI.getMessage();
     }
 
     @PostMapping(value = "estudiantes/encontrar")
@@ -41,10 +41,10 @@ public class CommonController {
         try {
             final List<SearchFoundStudentResponseDto> listOfSearchFoundForStudents =  this.commonService.findByDniStudentStartingWith(searchStudents.getDniStudent());
             model.addAttribute("listOfStudents", listOfSearchFoundForStudents);
-            return FilePathConstants.PATH_FILE_TEMPLATES_HTML_SEARCH_STUDENTS_BY_DNI.getMessage();
+            return FilePathConstants.PATH_TEMPLATE_HTML_SEARCH_STUDENTS_BY_DNI.getMessage();
         } catch (DataNotFoundException e) {
             model.addAttribute(MessageConstants.MESSAGE_MODEL_ATTRIBUTE.getMessage(), e.getMessage());
-            return FilePathConstants.PATH_FILE_TEMPLATES_HTML_SEARCH_STUDENTS_BY_DNI.getMessage();
+            return FilePathConstants.PATH_TEMPLATE_HTML_SEARCH_STUDENTS_BY_DNI.getMessage();
         }
     }
 
@@ -64,10 +64,10 @@ public class CommonController {
             } else {
                 model.addAttribute("listOfEnvironmentsPTI", listFoundOfTheNameEnvironments);
             }
-            return FilePathConstants.PATH_FILE_TEMPLATES_HTML_INDEX.getMessage();
+            return FilePathConstants.PATH_TEMPLATE_HTML_INDEX.getMessage();
         } catch (DataNotFoundException e) {
             model.addAttribute(MessageConstants.MESSAGE_MODEL_ATTRIBUTE.getMessage(), e.getMessage());
-            return FilePathConstants.PATH_FILE_TEMPLATES_HTML_INDEX.getMessage();
+            return FilePathConstants.PATH_TEMPLATE_HTML_INDEX.getMessage();
         }
     }
 }

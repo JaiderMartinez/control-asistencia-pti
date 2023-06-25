@@ -27,18 +27,18 @@ public class SecretaryController {
     @PreAuthorize(value = "hasRole('SECRETARIA')")
     public String showFormCreateEnvironmentsPTI(Model model) {
         model.addAttribute("createEnvironmentPtiRequestDto", new CreateEnvironmentPtiRequestDto());
-        return FilePathConstants.PATH_FILE_TEMPLATES_HTML_FORM_REGISTER_ENVIRONMENT.getMessage();
+        return FilePathConstants.PATH_TEMPLATE_HTML_FORM_REGISTER_ENVIRONMENT.getMessage();
     }
 
     @PostMapping(value = "create-environment")
     @PreAuthorize(value = "hasRole('SECRETARIA')")
-    public String saveEnvironmentsPTI(Model model, @ModelAttribute("createEnvironmentPtiRequestDto") CreateEnvironmentPtiRequestDto createEnvironmentPtiRequestDto) {
+    public String createEnvironment(Model model, @ModelAttribute("createEnvironmentPtiRequestDto") CreateEnvironmentPtiRequestDto createEnvironmentPtiRequestDto) {
         try {
             secretaryService.saveEnvironmentPti(createEnvironmentPtiRequestDto);
             return "redirect:/asistencia/show-form-environments";
         } catch (EmptyFieldException | FieldStructInvalidException | PersonNotExistsException e) {
             model.addAttribute(MessageConstants.MESSAGE_MODEL_ATTRIBUTE.getMessage(), e.getMessage());
-            return FilePathConstants.PATH_FILE_TEMPLATES_HTML_FORM_REGISTER_ENVIRONMENT.getMessage();
+            return FilePathConstants.PATH_TEMPLATE_HTML_FORM_REGISTER_ENVIRONMENT.getMessage();
         }
     }
 

@@ -1,5 +1,7 @@
 package com.colegio.asistencia.controllers;
 
+import com.colegio.asistencia.constants.FilePathConstants;
+import com.colegio.asistencia.constants.MessageConstants;
 import com.colegio.asistencia.dto.request.UserSaveRequestDto;
 import com.colegio.asistencia.exceptions.EmployeeAlreadyExistsException;
 import com.colegio.asistencia.exceptions.FieldStructInvalidException;
@@ -27,12 +29,12 @@ public class AdminController {
     @PreAuthorize(value = "hasRole('ADMINISTRADOR')")
     public String showViewSaveAUser(Model model) {
         model.addAttribute("userSaveRequestDto", new UserSaveRequestDto());
-        return "admin/formulario-registro-usuario";
+        return FilePathConstants.PATH_TEMPLATE_HTML_FORM_CREATE_ACCOUNT_USER.getMessage();
     }
 
     @PostMapping(value = "usuario")
     @PreAuthorize(value = "hasRole('ADMINISTRADOR')")
-    public String saveUsers(@ModelAttribute("userSaveRequestDto") UserSaveRequestDto userSaveRequest, Model model,
+    public String createUserAccount(@ModelAttribute("userSaveRequestDto") UserSaveRequestDto userSaveRequest, Model model,
                             RedirectAttributes redirectAttributes) {
         try {
             adminService.saveUser(userSaveRequest);
@@ -40,8 +42,8 @@ public class AdminController {
             return "redirect:/asistencia/form-user";
         } catch (EmptyFieldException | FieldStructInvalidException | WrongPasswordStructureException |
                  EmployeeAlreadyExistsException e) {
-            model.addAttribute("message", e.getMessage());
-            return "admin/formulario-registro-usuario";
+            model.addAttribute(MessageConstants.MESSAGE_MODEL_ATTRIBUTE.getMessage(), e.getMessage());
+            return FilePathConstants.PATH_TEMPLATE_HTML_FORM_CREATE_ACCOUNT_USER.getMessage();
         }
     }
 }
