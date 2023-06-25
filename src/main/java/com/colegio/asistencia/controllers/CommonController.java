@@ -1,6 +1,8 @@
 package com.colegio.asistencia.controllers;
 
-import com.colegio.asistencia.constants.Constants;
+import com.colegio.asistencia.constants.ControllerPathConstants;
+import com.colegio.asistencia.constants.FilePathConstants;
+import com.colegio.asistencia.constants.MessageConstants;
 import com.colegio.asistencia.dto.request.SearchByDniStudentsRequestDto;
 import com.colegio.asistencia.dto.request.UserAsEmployeeResponseDto;
 import com.colegio.asistencia.dto.response.EnvironmentsOfPTIResponseDto;
@@ -20,49 +22,52 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
-@RequestMapping(path = "/asistencia/")
+@RequestMapping(path = "/asistencia/comun/")
 @RequiredArgsConstructor
 public class CommonController {
 
     private final ICommonService commonService;
 
-    @GetMapping(value = "list-students")
+    @GetMapping(value = "estudiantes/filtro")
     @PreAuthorize(value = "hasRole('ADMINISTRADOR') or hasRole('SECRETARIA')")
     public String showViewSearchStudentsByDni(Model model) {
         model.addAttribute("searchByDniStudentsRequestDto", new SearchByDniStudentsRequestDto());
-        return Constants.PATH_HTML_SEARCH_STUDENTS_BY_DNI.getMessage();
+        return FilePathConstants.PATH_TEMPLATE_HTML_SEARCH_STUDENTS_BY_DNI.getMessage();
     }
 
-    @PostMapping(value = "search-student")
+    @PostMapping(value = "estudiantes/encontrar")
     @PreAuthorize(value = "hasRole('ADMINISTRADOR') or hasRole('SECRETARIA')")
-    public String listEmployee(@ModelAttribute("searchByDniStudentsRequestDto") SearchByDniStudentsRequestDto searchStudents, Model model) {
+    public String searchStudentsByLikeDni(@ModelAttribute("searchByDniStudentsRequestDto") SearchByDniStudentsRequestDto searchStudents, Model model) {
         try {
-            final List<SearchFoundStudentResponseDto> listOfSearchFoundForStudents =  commonService.findByDniStudentStartingWith(searchStudents.getDniStudent());
+            final List<SearchFoundStudentResponseDto> listOfSearchFoundForStudents =  this.commonService.findByDniStudentStartingWith(searchStudents.getDniStudent());
             model.addAttribute("listOfStudents", listOfSearchFoundForStudents);
-            return Constants.PATH_HTML_SEARCH_STUDENTS_BY_DNI.getMessage();
+            return FilePathConstants.PATH_TEMPLATE_HTML_SEARCH_STUDENTS_BY_DNI.getMessage();
         } catch (DataNotFoundException e) {
-            model.addAttribute(Constants.MESSAGE_MODEL_ATTRIBUTE.getMessage(), e.getMessage());
-            return Constants.PATH_HTML_SEARCH_STUDENTS_BY_DNI.getMessage();
+            model.addAttribute(MessageConstants.MESSAGE_MODEL_ATTRIBUTE.getMessage(), e.getMessage());
+            return FilePathConstants.PATH_TEMPLATE_HTML_SEARCH_STUDENTS_BY_DNI.getMessage();
         }
     }
 
-    @GetMapping(value = "index")
+    @GetMapping(value = "inicio")
     @PreAuthorize(value = "hasRole('ADMINISTRADOR') or hasRole('SECRETARIA') or hasRole('DOCENTE')")
     public String showViewIndex(Model model) {
         try {
             String dniFromUserAuthenticated = SecurityContextHolder.getContext().getAuthentication().getName();
             final UserAsEmployeeResponseDto userAuthenticated = commonService.findUserAuthenticatedByUserDni(Long.valueOf(dniFromUserAuthenticated));
             model.addAttribute("userAsEmployeeResponseDto", userAuthenticated);
+            model.addAttribute("formUserUrl", ControllerPathConstants.PATH_GET_MAPPING_CREATE_USER.getMessage());
+            model.addAttribute("formSearchStudentsUrl", ControllerPathConstants.PATH_GET_MAPPING_FILTER_STUDENTS.getMessage());
+            model.addAttribute("formEnvironmentsUrl", ControllerPathConstants.PATH_GET_MAPPING_CREATE_ENVIRONMENT.getMessage());
             List<EnvironmentsOfPTIResponseDto> listFoundOfTheNameEnvironments = commonService.findAllEnvironments();
             if (listFoundOfTheNameEnvironments.isEmpty()) {
-                model.addAttribute(Constants.MESSAGE_MODEL_ATTRIBUTE.getMessage(), Constants.MESSAGE_ENVIRONMENTS_OF_PTI_EMPTY.getMessage());
+                model.addAttribute(MessageConstants.MESSAGE_MODEL_ATTRIBUTE.getMessage(), MessageConstants.MESSAGE_ENVIRONMENTS_OF_PTI_EMPTY.getMessage());
             } else {
                 model.addAttribute("listOfEnvironmentsPTI", listFoundOfTheNameEnvironments);
             }
-            return Constants.PATH_HTML_INDEX.getMessage();
+            return FilePathConstants.PATH_TEMPLATE_HTML_INDEX.getMessage();
         } catch (DataNotFoundException e) {
-            model.addAttribute(Constants.MESSAGE_MODEL_ATTRIBUTE.getMessage(), e.getMessage());
-            return Constants.PATH_HTML_INDEX.getMessage();
+            model.addAttribute(MessageConstants.MESSAGE_MODEL_ATTRIBUTE.getMessage(), e.getMessage());
+            return FilePathConstants.PATH_TEMPLATE_HTML_INDEX.getMessage();
         }
     }
 }

@@ -2,17 +2,40 @@
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="UTF-8">
-        <title>Search Students</title>
+        <title>Buscar Estudiantes</title>
     </head>
     <style>
         body {
             background-color: #e0e0e0;
+            margin: 0px;
+            position: relative; /* Añade posicionamiento relativo al body */
+            min-height: 95vh; /* Establece una altura mínima del 100% de la altura visible */
+        }
+        
+        header {
+            background-color: #0B3A4D;
+            padding: 30px 0;
+        }
+
+        main {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-gap: 20px;
+            padding: 20px;
+            margin-bottom: 80px;
         }
 
         input[type="number"]::-webkit-inner-spin-button,
         input[type="number"]::-webkit-outer-spin-button {
             -webkit-appearance: none;
             margin: 0;
+        }
+
+        .formulario-search {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            height: 100%;
         }
 
         .formulario-search label {
@@ -25,10 +48,7 @@
             border-radius: 5px;
             background-color: #f2f2f2;
             width: 200px;
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            margin-right: 80px;
+            margin-right: 10px; /* Espacio entre el input y el botón */
         }
 
         .formulario-search input[type="number"]::placeholder {
@@ -41,21 +61,20 @@
         }
 
         .search-btn {
-            position: absolute;
             padding: 8px 16px;
             border: none;
             background-color: #f5f5f5;
             border-radius: 5px;
             color: #333;
-            top: 10px;
-            right: 10px;
-            margin-left: 5px;
+            margin-left: 5px; /* Espacio entre el input y el botón */
+            margin-right: 20px; /* Espacio entre el botón y el borde derecho */
         }
 
         /*list of students */
 
         .container-list-students {
-            margin-top: 100px;
+            margin-top: 25px;
+            margin-bottom: 25px; /* Ajusta el valor según tu preferencia */
         }
 
         .profile {
@@ -101,15 +120,28 @@
             left: 50%;  /* Coloca el elemento en el 50% del lado izquierdo de la página */
             transform: translate(-50%, -50%);  /* Centra el elemento en base a su propio tamaño */
         }
+
+        footer {
+            position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        background-color: #061F29;
+        padding: 40px;
+        }
+        
     </style>
     <body>
-        <main>
-            <form class="formulario-search"  th:action="@{/asistencia/search-student}" th:object="${searchByDniStudentsRequestDto}" method="post">
+        <header>
+            <form class="formulario-search"  th:action="@{/asistencia/comun/estudiantes/encontrar}" th:object="${searchByDniStudentsRequestDto}" method="post">
                 <label>Buscar </label>
                 <input id="search" type="number" th:field="*{dniStudent}" placeholder="search by dni" required>
                 <button type="submit" class="search-btn">Buscar</button>
             </form>
-    
+        </header>
+
+        <main>
             <div id="message-empty" th:if="${message != null}">
                 <span th:text="${message}"></span>
             </div>
@@ -149,5 +181,6 @@
             </div>
         </main>
 
+        <footer></footer>
     </body>
 </html>

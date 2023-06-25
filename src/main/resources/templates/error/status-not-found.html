@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Error 404 - Página no encontrada</title>
+</head>
+<style>
+    body {
+        background-color: #000000;
+    }
+
+    .container {
+        text-align: center;
+    }
+
+    .error-content {
+        background-color: rgba(0, 0, 0, 0.8);
+        padding: 10px;
+        overflow: hidden;
+    }
+
+    .error-content img {
+        width: 50%;
+        clip-path: inset(10% 0 30% 0); /* Ajusta el valor del recorte según tus necesidades */
+        margin: -10% auto 0;
+        transition: transform 0.5s ease; /* Agrega una transición de transformación de 0.5 segundos */
+    }
+
+    .error-content img:hover {
+        transform: scale(1.2); /* Aplica un zoom del 120% al pasar el cursor sobre la imagen */
+    }
+
+    .error-content img:hover:after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        transition: opacity 0.5s ease; /* Agrega una transición de opacidad de 0.5 segundos al fondo oscuro */
+    }
+
+    .error-content img:hover:after:hover {
+        opacity: 0; /* Oculta el fondo oscuro al pasar el cursor sobre él */
+    }
+
+    h1 {
+        font-size: 36px;
+        color: #ffffff;
+        margin-top: -140px;
+    }
+
+    p {
+        font-size: 18px;
+        color: #ffffff;
+    }
+
+    a {
+        text-decoration: none;
+        color: #007bff;
+        font-weight: bold;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+    .mensaje-redireccion.show {
+      opacity: 1;
+    }
+
+    .mensaje-redireccion {
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+    }
+
+</style>
+<body>
+  <div class="container">
+    <div class="error-content">
+      <img src="https://w0.peakpx.com/wallpaper/778/9/HD-wallpaper-404-error-404-error-glitch-glitch.jpg" alt="Página no encontrada">
+      <h1>Oops, algo salió mal...</h1>
+      <p>La página que estás buscando no se encuentra.</p>
+      <p class="mensaje-redireccion">Lo redireccionaremos a la pagina de Inicio</p>
+    </div>
+  </div>
+  <script th:inline="javascript">
+    // Mostrar el botón después de unos segundos
+    setTimeout(function() {
+      var mensaje = document.querySelector('.mensaje-redireccion');
+      mensaje.classList.add('show');
+    }, 3000);
+
+    // Redireccionar después de unos segundos
+    setTimeout(function() {
+      window.location.href = /*[[@{/asistencia/comun/inicio}]]*/ '';
+    }, 8000); // Cambia el valor "15000" a la cantidad de milisegundos que desees (9 segundos en este ejemplo)
+  </script>
+</body>
+</html>
