@@ -1,15 +1,17 @@
 package com.colegio.asistencia.constants;
 
-public enum ControllerPathConstants {
+public enum EndpointPathEnum {
 
     PATH_GET_MAPPING_CREATE_USER("/asistencia/form-user"),
     PATH_GET_MAPPING_FILTER_STUDENTS("/asistencia/comun/estudiantes/filtro"),
-    PATH_GET_MAPPING_CREATE_ENVIRONMENT("/asistencia/show-form-environments");
+    PATH_GET_MAPPING_CREATE_ENVIRONMENT("/asistencia/show-form-environments"),
+    PATH_GET_MAPPING_LOGIN("/asistencia/comun/login"),
+    PATH_GET_MAPPING_INDEX("/asistencia/comun/inicio");
 
 
     private final String message;
 
-    ControllerPathConstants(String message) {
+    EndpointPathEnum(String message) {
         this.message = message;
     }
 

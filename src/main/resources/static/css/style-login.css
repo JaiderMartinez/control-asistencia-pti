@@ -1,0 +1,84 @@
+body {
+    background:url("/img/img-login.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex; /* Contenedor flexible */
+    align-items: center; /* Centrado vertical */
+    justify-content: center; /* Centrado horizontal */
+    height: 100vh; /* Establece una altura fija */
+    overflow-y: hidden; /* Oculta la barra de desplazamiento vertical */
+}
+
+.contenedor {
+    width: 380px;
+    background-color: rgb(210, 209, 211);
+    padding: 20px;
+    border-radius: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: rgb(15, 15, 15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 70px 0; /* Ajusta el espaciado vertical */
+}
+
+h1 {
+    text-align: center;
+    margin: 15px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.contenedor label {
+    display: block;
+    text-align: center;
+    font-size: 20px;
+    margin: 0;
+}
+
+.contenedor input[type="text"],
+.contenedor input[type="password"] {
+    width: 80%;
+    height: 25px;
+    margin: 5px;
+    text-align: center;
+    border-radius: 7px;
+    border: none;
+}
+
+.contenedor input[type="submit"] {
+    background-color: rgb(153, 152, 152);
+    cursor: pointer;
+    margin-bottom: 10px;
+    width: 77%;
+    border: none;
+    border-radius: 7px;
+    padding: 6px;
+}
+
+.contenedor input[type="submit"]:hover {
+    background-color: rgba(21, 20, 20, 0.845);
+    cursor: pointer;
+    margin-bottom: 10px;
+    width: 80%;
+    border: none;
+    border-radius: 10px;
+    padding: 6px;
+    color: white;
+}
+
+.error-message {
+    text-align: center;
+    color: white;
+    background-color: #ff866b;
+    font-size: 14px;
+    width: 100%;
+    margin: 0%;
+}

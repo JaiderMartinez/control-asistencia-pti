@@ -1,7 +1,7 @@
 package com.colegio.asistencia.controllers;
 
-import com.colegio.asistencia.constants.FilePathConstants;
-import com.colegio.asistencia.constants.MessageConstants;
+import com.colegio.asistencia.constants.FilePathEnum;
+import com.colegio.asistencia.constants.MessageEnum;
 import com.colegio.asistencia.dto.request.UserSaveRequestDto;
 import com.colegio.asistencia.exceptions.EmployeeAlreadyExistsException;
 import com.colegio.asistencia.exceptions.FieldStructInvalidException;
@@ -29,7 +29,7 @@ public class AdminController {
     @PreAuthorize(value = "hasRole('ADMINISTRADOR')")
     public String showViewSaveAUser(Model model) {
         model.addAttribute("userSaveRequestDto", new UserSaveRequestDto());
-        return FilePathConstants.PATH_TEMPLATE_HTML_FORM_CREATE_ACCOUNT_USER.getMessage();
+        return FilePathEnum.PATH_TEMPLATE_HTML_FORM_CREATE_ACCOUNT_USER.getMessage();
     }
 
     @PostMapping(value = "usuario")
@@ -42,8 +42,8 @@ public class AdminController {
             return "redirect:/asistencia/form-user";
         } catch (EmptyFieldException | FieldStructInvalidException | WrongPasswordStructureException |
                  EmployeeAlreadyExistsException e) {
-            model.addAttribute(MessageConstants.MESSAGE_MODEL_ATTRIBUTE.getMessage(), e.getMessage());
-            return FilePathConstants.PATH_TEMPLATE_HTML_FORM_CREATE_ACCOUNT_USER.getMessage();
+            model.addAttribute(MessageEnum.MESSAGE_MODEL_ATTRIBUTE.getMessage(), e.getMessage());
+            return FilePathEnum.PATH_TEMPLATE_HTML_FORM_CREATE_ACCOUNT_USER.getMessage();
         }
     }
 }

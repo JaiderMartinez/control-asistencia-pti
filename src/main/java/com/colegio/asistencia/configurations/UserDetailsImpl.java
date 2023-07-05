@@ -1,36 +1,38 @@
 package com.colegio.asistencia.configurations;
 
+import com.colegio.asistencia.entity.UserEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.List;
+import java.util.stream.Stream;
 
 @Getter
 @Setter
 @AllArgsConstructor
 public class UserDetailsImpl implements UserDetails {
 
-    private String dni;
-    private String password;
-    private List<GrantedAuthority> role;
+    private transient UserEntity user;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.role;
+        return Stream.of(this.user.getEmployeeRole())
+                .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
+                .toList();
     }
 
     @Override
     public String getPassword() {
-        return this.password;
+        return this.user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return this.dni;
+        return this.user.getEmployeeEntity().getDni().toString();
     }
 
     @Override

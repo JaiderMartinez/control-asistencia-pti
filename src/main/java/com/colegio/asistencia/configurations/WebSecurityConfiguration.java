@@ -15,14 +15,22 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import static com.colegio.asistencia.constants.EndpointPathEnum.PATH_GET_MAPPING_INDEX;
+import static com.colegio.asistencia.constants.EndpointPathEnum.PATH_GET_MAPPING_LOGIN;
+
 @RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity(debug = true)
 @EnableMethodSecurity
 public class WebSecurityConfiguration {
 
+    private static final String USERNAME_PARAMETER = "username";
+    private static final String PASSWORD_PARAMETER = "password";
+    private static final String[] resources = new String[]{"/include/**","/css/**","/static/**","/img/**","/js/**","/layer/**",
+            "/index/inicio-sesion", "/asistencia/comun/sing-in"};
+
     private final UserDetailsServiceImpl userDetailsService;
-    private final String[] resources = new String[]{"/include/**","/css/**","/static/**","/img/**","/js/**","/layer/**"};
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -50,16 +58,18 @@ public class WebSecurityConfiguration {
                         .permitAll()
                         .anyRequest()
                         .authenticated())
-                .authenticationProvider(authenticationProvider())
                 .formLogin()
-                .permitAll()
-                //.loginPage("/home/login")
-                .usernameParameter("username").passwordParameter("password")
-                .defaultSuccessUrl("/asistencia/comun/inicio", true)
-                .failureUrl("/asistencia/login?error")
-                .and().logout().logoutUrl("/logout")  // Especifica la URL de cierre de sesión
-                .logoutSuccessUrl("/login")  // Redirige a la página de inicio de sesión predeterminada
-                .permitAll()
-                .and().build();
+                        .permitAll()
+                        .loginPage(PATH_GET_MAPPING_LOGIN.getMessage())
+                        .usernameParameter(USERNAME_PARAMETER).passwordParameter(PASSWORD_PARAMETER)
+                        .defaultSuccessUrl(PATH_GET_MAPPING_INDEX.getMessage(), true)
+                        .failureUrl(PATH_GET_MAPPING_LOGIN.getMessage())
+                        .and()
+                .logout()
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl(PATH_GET_MAPPING_LOGIN.getMessage())
+                        .permitAll()
+                        .and()
+                .build();
     }
 }

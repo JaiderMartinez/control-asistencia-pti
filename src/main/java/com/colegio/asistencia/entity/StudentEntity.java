@@ -21,7 +21,7 @@ public class StudentEntity {
     @Id
     private String dniStudent;
     private String name;
-    private String grado;
+    private String grade;
     private String contactNumber;
     private String residenceAddress;
     private LocalDate birthdate;

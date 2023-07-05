@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,7 +21,7 @@ import javax.persistence.Table;
 @Setter
 @Entity
 @Table(name = "usuarios")
-public class UserEntity {
+public class UserEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
