@@ -1,6 +1,7 @@
 package com.colegio.asistencia.dto.request;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,12 +10,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserAsEmployeeResponseDto {
+@Builder
+public class AuthCredentials {
 
-    private Long dni;
-    private String name;
-    private String lastName;
-    private String mail;
-    private String cellPhone;
-    private String employeeRole;
+    private String username;
+    private String password;
 }

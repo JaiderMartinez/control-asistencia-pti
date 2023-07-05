@@ -1,15 +1,16 @@
 package com.colegio.asistencia.constants;
 
-public enum FilePathConstants {
+public enum FilePathEnum {
 
     PATH_TEMPLATE_HTML_SEARCH_STUDENTS_BY_DNI("common/search-students-by-dni"),
     PATH_TEMPLATE_HTML_INDEX("index/index"),
     PATH_TEMPLATE_HTML_FORM_REGISTER_ENVIRONMENT("secretary/formulario-ambientes"),
-    PATH_TEMPLATE_HTML_FORM_CREATE_ACCOUNT_USER("admin/formulario-registro-usuario");
+    PATH_TEMPLATE_HTML_FORM_CREATE_ACCOUNT_USER("admin/formulario-registro-usuario"),
+    PATH_TEMPLATE_HTML_FORM_LOGIN("/index/inicio-sesion");
 
     private final String message;
 
-    FilePathConstants(String message) {
+    FilePathEnum(String message) {
         this.message = message;
     }
 
