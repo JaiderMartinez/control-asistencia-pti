@@ -5,14 +5,22 @@
         <title>Formulario Para Crear Ambientes</title>
     </head>
     <style>
+        body {
+              background-image: url('https://www.solofondos.com/wp-content/uploads/2016/10/f00782bb884ec561736dc81fd6532f30.jpg');
+              background-size: cover;
+              background-position: center;
+        }
+
         form {
                 width: 400px;
                 margin: 0 auto;
         }
+
         label {
                 display: block;
                 margin-top: 1rem;
         }
+
         input, textarea, select {
                 display: block;
                 width: 400px;
@@ -22,11 +30,25 @@
                 border: 1px solid #070302;
                 font-size: 1rem;
         }
+
         input[type="submit"] {
                 background-color: #eed7d7;
                 color: #0f0c0c;
                 padding: 0.5rem 1rem;
                 cursor: pointer;
+                width: 90%;
+                display: block;
+                margin: 7px auto;
+        }
+
+        input[type="submit"]:hover {
+                background-color: black;
+                color: white;
+                padding: 0.5rem 1rem;
+                cursor: pointer;
+                width: 100%;
+                display: block;
+                margin: 7px auto;
         }
 
         fieldset {
@@ -35,23 +57,13 @@
                 border: 1px solid #0c0a0a;
                 padding: 1rem;
         }
+
         legend {
                 font-size: 1.2rem;
                 font-weight: bold;
                 margin-bottom: 1rem;
         }
 
-        img {
-              position: absolute;
-              bottom: 0;
-              right: 0;
-
-        }
-        body {
-              background-image: url('https://www.solofondos.com/wp-content/uploads/2016/10/f00782bb884ec561736dc81fd6532f30.jpg');
-              background-size: cover;
-              background-position: center;
-        }
     </style>
     <script>
         function disableButton() {
@@ -80,8 +92,6 @@
                 <label for="salon">Salón:</label>
                 <input type="text" name="salon" id="salon" th:field="*{classroom}" required>
 
-                <img src="https://static.wixstatic.com/media/98f7ac_64749d2f52be4b06a02267e537e8b351~mv2.png/v1/fill/w_338,h_175,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/bandera.png" alt="Imagen de Ejemplo">
-             
                 <input type="submit" value="CREAR" id="boton-enviar"/>
             </fieldset>
         </form>
