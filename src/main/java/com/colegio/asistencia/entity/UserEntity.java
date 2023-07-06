@@ -1,9 +1,12 @@
 package com.colegio.asistencia.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,6 +22,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
 @Entity
 @Table(name = "usuarios")
 public class UserEntity implements Serializable {
@@ -30,5 +34,6 @@ public class UserEntity implements Serializable {
     private String password;
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "dni", referencedColumnName = "dni")
+    @Cascade(CascadeType.ALL)
     private EmployeeEntity employeeEntity;
 }

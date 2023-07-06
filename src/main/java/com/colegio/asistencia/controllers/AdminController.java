@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -44,6 +45,28 @@ public class AdminController {
                  EmployeeAlreadyExistsException e) {
             model.addAttribute(MessageEnum.MESSAGE_MODEL_ATTRIBUTE.getMessage(), e.getMessage());
             return FilePathEnum.PATH_TEMPLATE_HTML_FORM_CREATE_ACCOUNT_USER.getMessage();
+        }
+    }
+
+    @GetMapping(value = "usuario/{dni}/editar")
+    @PreAuthorize(value = "hasRole('ADMINISTRADOR')")
+    public String userData(Model model, @PathVariable(name = "dni") Long dniUser) {
+        model.addAttribute("userSaveRequestDto", this.adminService.getUserByDni(dniUser));
+        return FilePathEnum.PATH_TEMPLATE_HTML_EDIT_USER.getMessage();
+    }
+
+    @PostMapping(value = "usuario/actualizar")
+    @PreAuthorize(value = "hasRole('ADMINISTRADOR')")
+    public String updateUserData(@ModelAttribute("userSaveRequestDto") UserSaveRequestDto userSaveRequest, Model model,
+                                    RedirectAttributes redirectAttributes) {
+        try {
+            adminService.updateUserData(userSaveRequest);
+            redirectAttributes.addFlashAttribute("successfulMessage", String.format("Usuario con dni: %s actualizado", userSaveRequest.getDni()));
+            return "redirect:/asistencia/form-user";
+        } catch (EmptyFieldException | FieldStructInvalidException | WrongPasswordStructureException |
+                 EmployeeAlreadyExistsException e) {
+            model.addAttribute(MessageEnum.MESSAGE_MODEL_ATTRIBUTE.getMessage(), e.getMessage());
+            return "redirect:/asistencia/usuario/" + userSaveRequest.getDni() + "/editar";
         }
     }
 }

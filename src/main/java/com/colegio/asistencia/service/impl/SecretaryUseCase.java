@@ -13,6 +13,8 @@ import com.colegio.asistencia.service.ISecretaryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 @RequiredArgsConstructor
 public class SecretaryUseCase implements ISecretaryService {
@@ -22,6 +24,7 @@ public class SecretaryUseCase implements ISecretaryService {
     private final IEmployeeRepository employeeRepository;
     private final IUserRepository userRepository;
 
+    @Transactional
     @Override
     public void saveEnvironmentPti(CreateEnvironmentPtiRequestDto createEnvironmentPtiRequest) {
         final EmployeeEntity employeeFoundByDni = this.employeeRepository.findById(Long.valueOf(createEnvironmentPtiRequest.getDni()))
