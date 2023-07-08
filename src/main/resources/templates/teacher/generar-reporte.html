@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <header></header>
+
+    <main>
+        <form th:action="@{/asistencia/docente/generar-reporte}"  method="post">
+
+            <label for="pathToSavedFile" >Nombre del archivo:</label>
+            <input type="text" id="pathToSavedFile" name="pathToSavedFile" required>
+
+            <div class="ambientes">
+                <h2>Potenciando Talento e Intereses</h2>
+                <div class="list-ambientes">
+
+                    <select name="codePti">
+                        <option value="0">Selecionar</option>
+                        <option th:each="environment : ${listOfEnvironmentsPTI}" th:value="${environment.codePti}" th:text="${environment.name}"></option>
+                    </select>
+
+                </div>
+            </div>
+
+            <button type="submit" >Generar Reporte</button>
+        </form>
+
+        <div id="message-empty" th:if="${message != null}">
+            <span th:text="${message}"></span>
+        </div>
+    </main>
+
+    <footer></footer>
+</form>
+</body>
+</html>

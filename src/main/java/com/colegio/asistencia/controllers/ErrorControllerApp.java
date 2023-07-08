@@ -23,6 +23,6 @@ public class ErrorControllerApp implements ErrorController {
         } else if (statusCode == HttpServletResponse.SC_FORBIDDEN) {
             return STATUS_PAGE_FORBIDDEN_PATH_FILE_TEMPLATES;
         }
-        return STATUS_PAGE_INTERNAL_SERVER_ERROR_PATH_FILE_TEMPLATES;
+        return STATUS_PAGE_FORBIDDEN_PATH_FILE_TEMPLATES;
     }
 }

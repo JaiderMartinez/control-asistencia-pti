@@ -1,4 +1,4 @@
-package com.colegio.asistencia.entity;
+package com.colegio.asistencia.persistence.jpa.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

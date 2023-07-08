@@ -1,6 +1,7 @@
 package com.colegio.asistencia.dto.response;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,7 +10,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class EnvironmentsOfPTIResponseDto {
+@Builder
+public class EnvironmentOfPTIResponseDto {
 
+    private Long codePti;
     private String name;
 }

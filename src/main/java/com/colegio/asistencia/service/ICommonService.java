@@ -2,7 +2,7 @@ package com.colegio.asistencia.service;
 
 import com.colegio.asistencia.dto.request.AuthCredentials;
 import com.colegio.asistencia.dto.request.UserAsEmployeeResponseDto;
-import com.colegio.asistencia.dto.response.EnvironmentsOfPTIResponseDto;
+import com.colegio.asistencia.dto.response.EnvironmentOfPTIResponseDto;
 import com.colegio.asistencia.dto.response.SearchFoundStudentResponseDto;
 import org.springframework.security.core.Authentication;
 
@@ -13,7 +13,7 @@ public interface ICommonService {
 
     List<SearchFoundStudentResponseDto> getAllStudentsThatBeginWithDni(String dniStudent);
 
-    List<EnvironmentsOfPTIResponseDto> findAllEnvironments();
+    List<EnvironmentOfPTIResponseDto> findAllEnvironments();
 
     UserAsEmployeeResponseDto findUserAuthenticatedByDni(Long dni);
 
