@@ -1,7 +1,7 @@
 package com.colegio.asistencia.mapper.request;
 
 import com.colegio.asistencia.dto.request.CreateEnvironmentPtiRequestDto;
-import com.colegio.asistencia.entity.EnvironmentPtiEntity;
+import com.colegio.asistencia.persistence.jpa.entity.EnvironmentPtiEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

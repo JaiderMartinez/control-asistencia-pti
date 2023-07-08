@@ -3,17 +3,17 @@ package com.colegio.asistencia.service.impl;
 import com.colegio.asistencia.constants.MessageEnum;
 import com.colegio.asistencia.dto.request.AuthCredentials;
 import com.colegio.asistencia.dto.request.UserAsEmployeeResponseDto;
-import com.colegio.asistencia.dto.response.EnvironmentsOfPTIResponseDto;
+import com.colegio.asistencia.dto.response.EnvironmentOfPTIResponseDto;
 import com.colegio.asistencia.dto.response.SearchFoundStudentResponseDto;
-import com.colegio.asistencia.entity.EnvironmentPtiEntity;
-import com.colegio.asistencia.entity.StudentEntity;
+import com.colegio.asistencia.persistence.jpa.entity.EnvironmentPtiEntity;
+import com.colegio.asistencia.persistence.jpa.entity.StudentEntity;
 import com.colegio.asistencia.exceptions.DataNotFoundException;
 import com.colegio.asistencia.mapper.response.IEnvironmentPtiResponseMapper;
 import com.colegio.asistencia.mapper.response.IStudentResponseMapper;
 import com.colegio.asistencia.mapper.response.IUserMapperResponse;
-import com.colegio.asistencia.repository.IEnvironmentPtiRepository;
-import com.colegio.asistencia.repository.IStudentRepository;
-import com.colegio.asistencia.repository.IUserRepository;
+import com.colegio.asistencia.persistence.jpa.repository.IEnvironmentPtiRepository;
+import com.colegio.asistencia.persistence.jpa.repository.IStudentRepository;
+import com.colegio.asistencia.persistence.jpa.repository.IUserRepository;
 import com.colegio.asistencia.service.ICommonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -49,7 +49,7 @@ public class CommonServiceImpl implements ICommonService {
     }
 
     @Override
-    public List<EnvironmentsOfPTIResponseDto> findAllEnvironments() {
+    public List<EnvironmentOfPTIResponseDto> findAllEnvironments() {
         List<EnvironmentPtiEntity> listOfEnvironmentsPtiEntities = environmentPtiRepository.findAll();
         if (listOfEnvironmentsPtiEntities.isEmpty() )
             throw new DataNotFoundException(MessageEnum.MESSAGE_ENVIRONMENTS_OF_PTI_EMPTY.getMessage());

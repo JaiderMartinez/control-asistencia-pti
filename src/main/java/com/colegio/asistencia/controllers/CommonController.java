@@ -24,7 +24,7 @@ import static com.colegio.asistencia.constants.FilePathEnum.PATH_TEMPLATE_HTML_F
 import static com.colegio.asistencia.constants.FilePathEnum.PATH_TEMPLATE_HTML_INDEX;
 import static com.colegio.asistencia.constants.FilePathEnum.PATH_TEMPLATE_HTML_SEARCH_STUDENTS_BY_DNI;
 import static com.colegio.asistencia.constants.MessageEnum.MESSAGE_BAD_CREDENTIALS;
-import static com.colegio.asistencia.constants.MessageEnum.MESSAGE_MODEL_ATTRIBUTE;
+import static com.colegio.asistencia.constants.MessageEnum.MESSAGE_MODEL_ATTRIBUTE_FAILED;
 
 @Controller
 @RequestMapping(path = "/asistencia/comun/")
@@ -57,7 +57,7 @@ public class CommonController {
     }
 
     private void addAttributeWithTheMessagePrefix(Model model, String message) {
-        model.addAttribute(MESSAGE_MODEL_ATTRIBUTE.getMessage(), message);
+        model.addAttribute(MESSAGE_MODEL_ATTRIBUTE_FAILED.getMessage(), message);
     }
 
     @GetMapping(value = "inicio")
@@ -93,7 +93,7 @@ public class CommonController {
             this.commonService.singIn(authCredentials, request);
             return "redirect:/asistencia/comun/inicio";
         } catch (AuthenticationException e) {
-            model.addAttribute(MESSAGE_MODEL_ATTRIBUTE.getMessage(), MESSAGE_BAD_CREDENTIALS);
+            model.addAttribute(MESSAGE_MODEL_ATTRIBUTE_FAILED.getMessage(), MESSAGE_BAD_CREDENTIALS);
             return PATH_TEMPLATE_HTML_FORM_LOGIN.getMessage();
         }
     }

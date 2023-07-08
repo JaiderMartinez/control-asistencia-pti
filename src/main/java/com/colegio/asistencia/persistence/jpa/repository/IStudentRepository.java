@@ -1,6 +1,6 @@
-package com.colegio.asistencia.repository;
+package com.colegio.asistencia.persistence.jpa.repository;
 
-import com.colegio.asistencia.entity.StudentEntity;
+import com.colegio.asistencia.persistence.jpa.entity.StudentEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

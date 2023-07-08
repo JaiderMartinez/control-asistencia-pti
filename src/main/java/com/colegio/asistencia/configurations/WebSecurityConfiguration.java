@@ -20,14 +20,14 @@ import static com.colegio.asistencia.constants.EndpointPathEnum.PATH_GET_MAPPING
 
 @RequiredArgsConstructor
 @Configuration
-@EnableWebSecurity(debug = true)
+@EnableWebSecurity
 @EnableMethodSecurity
 public class WebSecurityConfiguration {
 
     private static final String USERNAME_PARAMETER = "username";
     private static final String PASSWORD_PARAMETER = "password";
     private static final String[] resources = new String[]{"/include/**","/css/**","/static/**","/img/**","/js/**","/layer/**",
-            "/index/inicio-sesion", "/asistencia/comun/sing-in"};
+            "/index/inicio-sesion", "/asistencia/comun/sing-in", "/asistencia/reporte"};
 
     private final UserDetailsServiceImpl userDetailsService;
 

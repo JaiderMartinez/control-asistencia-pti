@@ -1,7 +1,7 @@
 package com.colegio.asistencia.mapper.response;
 
 import com.colegio.asistencia.dto.request.UserAsEmployeeResponseDto;
-import com.colegio.asistencia.entity.UserEntity;
+import com.colegio.asistencia.persistence.jpa.entity.UserEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

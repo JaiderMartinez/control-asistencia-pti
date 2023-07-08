@@ -1,8 +1,8 @@
 package com.colegio.asistencia.mapper;
 
 import com.colegio.asistencia.dto.request.UserSaveRequestDto;
-import com.colegio.asistencia.entity.EmployeeEntity;
-import com.colegio.asistencia.entity.UserEntity;
+import com.colegio.asistencia.persistence.jpa.entity.EmployeeEntity;
+import com.colegio.asistencia.persistence.jpa.entity.UserEntity;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass

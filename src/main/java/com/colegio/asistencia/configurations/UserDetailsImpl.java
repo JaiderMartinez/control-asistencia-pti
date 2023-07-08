@@ -1,6 +1,6 @@
 package com.colegio.asistencia.configurations;
 
-import com.colegio.asistencia.entity.UserEntity;
+import com.colegio.asistencia.persistence.jpa.entity.UserEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

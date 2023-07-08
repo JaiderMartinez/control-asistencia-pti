@@ -1,7 +1,7 @@
 package com.colegio.asistencia.mapper.request;
 
 import com.colegio.asistencia.dto.request.UserSaveRequestDto;
-import com.colegio.asistencia.entity.UserEntity;
+import com.colegio.asistencia.persistence.jpa.entity.UserEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

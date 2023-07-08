@@ -1,14 +1,14 @@
 package com.colegio.asistencia.service.impl;
 
 import com.colegio.asistencia.dto.request.CreateEnvironmentPtiRequestDto;
-import com.colegio.asistencia.entity.EmployeeEntity;
-import com.colegio.asistencia.entity.EnvironmentPtiEntity;
-import com.colegio.asistencia.entity.UserEntity;
+import com.colegio.asistencia.persistence.jpa.entity.EmployeeEntity;
+import com.colegio.asistencia.persistence.jpa.entity.EnvironmentPtiEntity;
+import com.colegio.asistencia.persistence.jpa.entity.UserEntity;
 import com.colegio.asistencia.exceptions.PersonNotExistsException;
 import com.colegio.asistencia.mapper.request.IEnvironmentRequestMapper;
-import com.colegio.asistencia.repository.IEmployeeRepository;
-import com.colegio.asistencia.repository.IEnvironmentPtiRepository;
-import com.colegio.asistencia.repository.IUserRepository;
+import com.colegio.asistencia.persistence.jpa.repository.IEmployeeRepository;
+import com.colegio.asistencia.persistence.jpa.repository.IEnvironmentPtiRepository;
+import com.colegio.asistencia.persistence.jpa.repository.IUserRepository;
 import com.colegio.asistencia.service.ISecretaryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

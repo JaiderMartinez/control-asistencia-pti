@@ -1,15 +1,15 @@
 package com.colegio.asistencia.service.impl;
 
 import com.colegio.asistencia.dto.request.UserSaveRequestDto;
-import com.colegio.asistencia.entity.UserEntity;
+import com.colegio.asistencia.persistence.jpa.entity.UserEntity;
 import com.colegio.asistencia.exceptions.EmployeeAlreadyExistsException;
 import com.colegio.asistencia.exceptions.EmptyFieldException;
 import com.colegio.asistencia.exceptions.FieldStructInvalidException;
 import com.colegio.asistencia.exceptions.WrongPasswordStructureException;
 import com.colegio.asistencia.mapper.EmployeeMapper;
 import com.colegio.asistencia.mapper.request.IUserRequestMapper;
-import com.colegio.asistencia.repository.IEmployeeRepository;
-import com.colegio.asistencia.repository.IUserRepository;
+import com.colegio.asistencia.persistence.jpa.repository.IEmployeeRepository;
+import com.colegio.asistencia.persistence.jpa.repository.IUserRepository;
 import com.colegio.asistencia.service.IAdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
