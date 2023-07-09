@@ -2,7 +2,7 @@ package com.colegio.asistencia.controllers;
 
 import com.colegio.asistencia.constants.FilePathEnum;
 import com.colegio.asistencia.dto.request.UserSaveRequestDto;
-import com.colegio.asistencia.exceptions.EmployeeAlreadyExistsException;
+import com.colegio.asistencia.exceptions.PersonAlreadyExistsException;
 import com.colegio.asistencia.exceptions.FieldStructInvalidException;
 import com.colegio.asistencia.exceptions.WrongPasswordStructureException;
 import com.colegio.asistencia.service.IAdminService;
@@ -47,7 +47,7 @@ public class AdminController {
             adminService.saveUser(userSaveRequest);
             redirectAttributes.addFlashAttribute(MESSAGE_MODEL_ATTRIBUTE_SUCCESS.getMessage(), SUCCESSFULLY_REGISTERED_USER);
         } catch (EmptyFieldException | FieldStructInvalidException | WrongPasswordStructureException |
-                 EmployeeAlreadyExistsException e) {
+                 PersonAlreadyExistsException e) {
             addAttributeWithTheMessagePrefix(model, e.getMessage());
             return FilePathEnum.PATH_TEMPLATE_HTML_FORM_CREATE_ACCOUNT_USER.getMessage();
         }
@@ -72,7 +72,7 @@ public class AdminController {
             adminService.updateUserData(userSaveRequest);
             redirectAttributes.addFlashAttribute(MESSAGE_MODEL_ATTRIBUTE_SUCCESS.getMessage(), String.format(USER_SUCCESSFULLY_UPDATED, userSaveRequest.getDni()));
         } catch (EmptyFieldException | FieldStructInvalidException | WrongPasswordStructureException |
-                 EmployeeAlreadyExistsException e) {
+                 PersonAlreadyExistsException e) {
             addAttributeWithTheMessagePrefix(model, e.getMessage());
             return "redirect:/asistencia/usuario/" + userSaveRequest.getDni() + "/editar";
         }

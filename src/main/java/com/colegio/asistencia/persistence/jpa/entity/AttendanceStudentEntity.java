@@ -30,7 +30,7 @@ public class AttendanceStudentEntity {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "codigo_aistencia")
+    @JoinColumn(name = "codigo_asistencia")
     private AttendanceEntity attendanceEntity;
 
     @ManyToOne

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+    <center>
+    <title>Formulario Registro de Estudiantes</title>
+    <style type="text/css">
+        form {
+                width: 400px;
+                margin: 0 auto;
+        }
+        label {
+                display: block;
+                margin-top: 1rem;
+        }
+        input, textarea, select {
+                display: block;
+                width: 400px;
+                padding: 0.5rem;
+                margin-top: 0.5rem;
+                border-radius: 5px;
+                border: 1px solid #0b0b0b;
+                font-size: 1rem;
+        }
+        input[type="submit"] {
+                background-color: #dc4848;
+                color: #0f0c0c;
+                padding: 0.5rem 1rem;
+                cursor: pointer;
+        }
+        fieldset {
+                margin-top: 2rem;
+                border-radius: 5px;
+                border: 1px solid #080707;
+                padding: 1rem;
+        }
+        legend {
+                font-size: 1.2rem;
+                font-weight: bold;
+                margin-bottom: 1rem;
+        }
+        
+        img {
+              position: absolute;
+              bottom: 0;
+              right: 0;
+        
+        }
+        body {
+              background-image: url('https://img.freepik.com/vector-gratis/fondo-rojo-blanco-simple-negocios_53876-115949.jpg?w=2000');
+              background-size: cover;
+              background-position: center;
+        }
+
+    
+    </style>
+    </head>
+    <body>
+        <form th:object="${studentRequestDto}" th:action="@{/asistencia/estudiante/}" onsubmit="disableButton()"  method="post">
+            <fieldset>
+                <legend>Registrar Estudiante</legend>
+                <div id="mensaje_error" th:if="${message != null}">
+                    <p th:text="${message}"></p>
+                </div>
+                <label for="dni">DNI Del Estudiante:</label>
+                <input type="number" th:field="*{dni}" id="dni" required>
+    
+                <label for="nombre">Nombre Del Estudiante:</label>
+                <input type="text" th:field="*{name}" id="nombre" required>
+    
+                <label for="salon"> Grado:</label>
+                <input type="text" th:field="*{grade}" id="salon" required>
+
+                <label for="Numero de Algun Familiar">Numero de Algun Familiar:</label>
+                <input type="number" th:field="*{familyContactNumber}" id="Numero de Algun Familiar" required>
+
+                <label for="dirección"> Dirreccion:</label>
+                <input type="text" th:field="*{address}" id="dirección" required>
+
+                <label for="fechaNacimiento">fechaNacimiento:</label>
+                <input type="date" th:field="*{birthDate}" id="fechaNacimiento" required>
+
+                <input type="submit"value="ENVIAR" id="boton-enviar"/>
+        
+            </fieldset>
+        </form>
+        <br>
+    
+        
+    </body>
+</center>
+</html>
+
+
+
+
+    
