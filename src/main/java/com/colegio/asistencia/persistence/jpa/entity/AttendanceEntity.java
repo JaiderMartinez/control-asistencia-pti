@@ -29,7 +29,7 @@ public class AttendanceEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cogigo_asistencia")
+    @Column(name = "codigo_asistencia")
     private Long id;
     @Column(name = "tipo")
     @Enumerated(EnumType.STRING)

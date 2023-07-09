@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -30,7 +31,9 @@ public class UserEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idUser;
+    @Column(name = "cargo")
     private String employeeRole;
+    @Column(name = "password")
     private String password;
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "dni", referencedColumnName = "dni")

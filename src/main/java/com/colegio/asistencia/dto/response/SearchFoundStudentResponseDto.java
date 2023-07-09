@@ -18,5 +18,5 @@ public class SearchFoundStudentResponseDto {
     private String grade;
     private String contactNumber;
     private String residenceAddress;
-    private LocalDate birthdate;
+    private LocalDate birthDate;
 }

@@ -1,13 +1,13 @@
 package com.colegio.asistencia.controllers;
 
 import com.colegio.asistencia.constants.FilePathEnum;
-import com.colegio.asistencia.constants.MessageEnum;
 import com.colegio.asistencia.dto.request.CreateEnvironmentPtiRequestDto;
+import com.colegio.asistencia.dto.request.StudentRequestDto;
 import com.colegio.asistencia.exceptions.EmptyFieldException;
 import com.colegio.asistencia.exceptions.FieldStructInvalidException;
+import com.colegio.asistencia.exceptions.PersonAlreadyExistsException;
 import com.colegio.asistencia.exceptions.PersonNotExistsException;
 import com.colegio.asistencia.service.ISecretaryService;
-import com.colegio.asistencia.service.ITeacherService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -17,13 +17,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import static com.colegio.asistencia.constants.EndpointPathEnum.PATH_GET_MAPPING_STUDENT;
+import static com.colegio.asistencia.constants.MessageEnum.MESSAGE_MODEL_ATTRIBUTE_FAILED;
+
 @Controller
 @RequestMapping(path = "/asistencia/")
 @RequiredArgsConstructor
 public class SecretaryController {
 
     private final ISecretaryService secretaryService;
-    private final ITeacherService teacherService;
 
     @GetMapping(value = "show-form-environments")
     @PreAuthorize(value = "hasRole('SECRETARIA')")
@@ -38,9 +40,32 @@ public class SecretaryController {
         try {
             secretaryService.saveEnvironmentPti(createEnvironmentPtiRequestDto);
         } catch (EmptyFieldException | FieldStructInvalidException | PersonNotExistsException e) {
-            model.addAttribute(MessageEnum.MESSAGE_MODEL_ATTRIBUTE_FAILED.getMessage(), e.getMessage());
+            addAttributeWithTheMessagePrefix(model, e.getMessage());
             return FilePathEnum.PATH_TEMPLATE_HTML_FORM_REGISTER_ENVIRONMENT.getMessage();
         }
         return "redirect:/asistencia/show-form-environments";
+    }
+
+    @GetMapping(value = "estudiante")
+    @PreAuthorize(value = "hasRole('SECRETARIA')")
+    public String showStudentRegistrationForm(Model model) {
+        model.addAttribute("studentRequestDto", new StudentRequestDto());
+        return FilePathEnum.PATH_TEMPLATE_HTML_FORM_REGISTER_STUDENT.getMessage();
+    }
+
+    @PostMapping(value = "estudiante/")
+    @PreAuthorize(value = "hasRole('SECRETARIA')")
+    public String registerStudent(Model model, @ModelAttribute("studentRequestDto") StudentRequestDto studentRequestDto) {
+        try {
+            secretaryService.registerStudent(studentRequestDto);
+        } catch (PersonAlreadyExistsException e) {
+            addAttributeWithTheMessagePrefix(model, e.getMessage());
+            return FilePathEnum.PATH_TEMPLATE_HTML_FORM_REGISTER_STUDENT.getMessage();
+        }
+        return "redirect:" + PATH_GET_MAPPING_STUDENT.getMessage();
+    }
+
+    private void addAttributeWithTheMessagePrefix(Model model, String message) {
+        model.addAttribute(MESSAGE_MODEL_ATTRIBUTE_FAILED.getMessage(), message);
     }
 }

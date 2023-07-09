@@ -2,7 +2,7 @@ package com.colegio.asistencia.service.impl;
 
 import com.colegio.asistencia.dto.request.UserSaveRequestDto;
 import com.colegio.asistencia.persistence.jpa.entity.UserEntity;
-import com.colegio.asistencia.exceptions.EmployeeAlreadyExistsException;
+import com.colegio.asistencia.exceptions.PersonAlreadyExistsException;
 import com.colegio.asistencia.exceptions.EmptyFieldException;
 import com.colegio.asistencia.exceptions.FieldStructInvalidException;
 import com.colegio.asistencia.exceptions.WrongPasswordStructureException;
@@ -50,7 +50,7 @@ public class AdminUseCase implements IAdminService {
         } else if (isValidFieldPassword(userToValidate.getPassword())) {
             throw new WrongPasswordStructureException(String.format(MESSAGE_WRONG_PASSWORD, userToValidate.getPassword()));
         } else if (existUserWithSameDni(userToValidate.getDni())) {
-            throw new EmployeeAlreadyExistsException(MESSAGE_EMPLOYEE_ALREADY_EXISTS);
+            throw new PersonAlreadyExistsException(MESSAGE_EMPLOYEE_ALREADY_EXISTS);
         }
     }
 
