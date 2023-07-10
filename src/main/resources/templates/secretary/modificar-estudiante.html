@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.w3.org/1999/xhtml">
     <center>
-    <title>Registrar Estudiante</title>
+    <title>Editar Estudiante</title>
     <style type="text/css">
         form {
                 width: 400px;
@@ -53,6 +53,7 @@
     
     </style>
     </head>
+
         <script>
         function disableButton() {
             var button = document.getElementById("boton-enviar");
@@ -60,13 +61,13 @@
             button.value = "Enviando";
             setTimeout(function() {
             // Código que se ejecutará después de un segundo
-            }, 1000);
+             }, 1000);
         }
     </script>
     <body>
-        <form th:object="${studentRequestDto}" th:action="@{/asistencia/estudiante/}" onsubmit="disableButton()"  method="post">
+        <form th:object="${studentUpdateRequest}" th:action="@{/asistencia/estudiante/actualizado}" onsubmit="disableButton()"  method="post">
             <fieldset>
-                <legend>Registrar Estudiante</legend>
+                <legend>Modificacion Del Estudiante</legend>
                 <div id="mensaje_error" th:if="${message != null}">
                     <p th:text="${message}"></p>
                 </div>
@@ -74,7 +75,7 @@
                 <input type="number" th:field="*{dni}" id="dni" required>
     
                 <label for="nombre">Nombre Del Estudiante:</label>
-                <input type="text" th:field="*{name}" id="nombre" required>
+                <input type="text" th:field="*{name}" id="nombre" disabled>
     
                 <label for="salon"> Grado:</label>
                 <input type="text" th:field="*{grade}" id="salon" required>
@@ -86,14 +87,13 @@
                 <input type="text" th:field="*{address}" id="dirección" required>
 
                 <label for="fechaNacimiento">fechaNacimiento:</label>
-                <input type="date" th:field="*{birthDate}" id="fechaNacimiento" required>
-
-                <input type="submit"value="ENVIAR" id="boton-enviar"/>
+                <input type="date" th:field="*{birthDate}" id="fechaNacimiento" disabled>
+             
+                <input type="submit" value="ENVIAR" id="boton-enviar"/>
         
             </fieldset>
         </form>
         <br>
-    
         
     </body>
 </center>

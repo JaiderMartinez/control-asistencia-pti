@@ -3,6 +3,7 @@ package com.colegio.asistencia.controllers;
 import com.colegio.asistencia.constants.FilePathEnum;
 import com.colegio.asistencia.dto.request.CreateEnvironmentPtiRequestDto;
 import com.colegio.asistencia.dto.request.StudentRequestDto;
+import com.colegio.asistencia.dto.request.StudentUpdateRequest;
 import com.colegio.asistencia.exceptions.EmptyFieldException;
 import com.colegio.asistencia.exceptions.FieldStructInvalidException;
 import com.colegio.asistencia.exceptions.PersonAlreadyExistsException;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -67,5 +69,29 @@ public class SecretaryController {
 
     private void addAttributeWithTheMessagePrefix(Model model, String message) {
         model.addAttribute(MESSAGE_MODEL_ATTRIBUTE_FAILED.getMessage(), message);
+    }
+
+    @GetMapping(value = "estudiante/editar/{dniStudent}")
+    @PreAuthorize(value = "hasRole('SECRETARIA')")
+    public String showStudentDataByDni(Model model, @PathVariable(name = "dniStudent") String dniStudent) {
+        try {
+            model.addAttribute("studentUpdateRequest", this.secretaryService.findStudentByDni(dniStudent));
+        } catch ( PersonNotExistsException e) {
+            addAttributeWithTheMessagePrefix(model, e.getMessage());
+            return FilePathEnum.PATH_TEMPLATE_HTML_FORM_UPDATED_STUDENT.getMessage();
+        }
+        return FilePathEnum.PATH_TEMPLATE_HTML_FORM_UPDATED_STUDENT.getMessage();
+    }
+
+    @PostMapping(value = "estudiante/actualizado")
+    @PreAuthorize(value = "hasRole('SECRETARIA')")
+    public String editStudentData(Model model, @ModelAttribute("studentUpdateRequest") StudentUpdateRequest studentUpdateRequest) {
+        try {
+            this.secretaryService.updateStudentData(studentUpdateRequest);
+        } catch (PersonAlreadyExistsException e) {
+            addAttributeWithTheMessagePrefix(model, e.getMessage());
+            return FilePathEnum.PATH_TEMPLATE_HTML_FORM_UPDATED_STUDENT.getMessage();
+        }
+        return "redirect:" + PATH_GET_MAPPING_STUDENT.getMessage();
     }
 }

@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="es">
     <head>
         <meta charset="UTF-8">
-        <title>Formulario Para Crear Ambientes</title>
+        <title>Crear Ambientes</title>
     </head>
     <style>
         body {
@@ -76,7 +76,7 @@
         }
     </script>
     <body>
-        <form th:object="${createEnvironmentPtiRequestDto}" th:action="@{/asistencia/create-environment}" method="post" onsubmit="disableButton()"  method="post">
+        <form th:object="${createEnvironmentPtiRequestDto}" th:action="@{/asistencia/create-environment}" onsubmit="disableButton()"  method="post">
             <fieldset>
                 <legend>Crear Ambiente</legend>
     

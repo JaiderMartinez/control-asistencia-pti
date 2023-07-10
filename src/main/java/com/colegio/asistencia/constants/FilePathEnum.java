@@ -9,7 +9,8 @@ public enum FilePathEnum {
     PATH_TEMPLATE_HTML_FORM_LOGIN("/index/inicio-sesion"),
     PATH_TEMPLATE_HTML_EDIT_USER("admin/modificar-usuario"),
     PATH_TEMPLATE_HTML_GENERATE_REPORT("teacher/generar-reporte"),
-    PATH_TEMPLATE_HTML_FORM_REGISTER_STUDENT("secretary/registrar-estudiante");
+    PATH_TEMPLATE_HTML_FORM_REGISTER_STUDENT("secretary/registrar-estudiante"),
+    PATH_TEMPLATE_HTML_FORM_UPDATED_STUDENT("secretary/modificar-estudiante");
 
     private final String message;
 
