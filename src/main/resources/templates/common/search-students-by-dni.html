@@ -170,12 +170,12 @@
                         </div>
                         <div class="profile-field">
                             <label>Fecha de nacimiento:</label>
-                            <span th:text="${student.birthdate}"></span>
+                            <span th:text="${student.birthDate}"></span>
                         </div>
                     </div>
                     <div class="profile-actions">
-                        <a class="btn btn-warning" th:href="@{'/editarUsuario/' + ${student.dniStudent}}"><input type="button" value="EDITAR"></a>
-                        <a class="btn btn-danger" th:href="@{'/eliminarUsuario/' + ${student.dniStudent}}" onclick="return confirm('¿Estás seguro de eliminar este registro?');"><input type="button" value="ELIMINAR"></a>
+                        <a class="btn btn-warning" th:href="@{'/asistencia/estudiante/editar/' + ${student.dniStudent}}"><input type="button" value="EDITAR"></a>
+                        <a class="btn btn-danger" th:href="@{'/asistencia/estudiante/eliminar/' + ${student.dniStudent}}" onclick="return confirm('¿Estás seguro de eliminar este registro?');"><input type="button" value="ELIMINAR"></a>
                     </div>
                 </div>
             </div>

@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="es">
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
     <head>
         <meta charset="UTF-8"> 
         <title>Inicio</title>
+        <link rel="stylesheet" type="text/css"th:href="@{/css/style-menu.css}" >
     </head>
     <style>
         body {
@@ -11,8 +12,9 @@
         }
 
         header {
-            background-color: #0B3A4D;
-            padding: 20px 0;
+          position: relative; /* Añadimos posición relativa */
+          padding: 40px; /* Agregamos un espaciado interno al encabezado */
+          background-color: #0B3A4D;
         }
 
         h1 {
@@ -29,73 +31,6 @@
         main {
             margin-top: 30px;
             margin-bottom: 20px;
-        }
-
-        .menu {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-left: 180px;
-            margin-right: 50px;
-            background-color: black;
-            color: white;
-            padding: 5px;
-            font-size: 15px;
-        }
-
-        .opciones-menu {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        .opciones-menu li {
-            display: inline;
-            margin-right: 30px;
-            margin-left: 30px;
-            cursor: pointer;
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .opciones-menu li a {
-            text-decoration: none; /* Quita el subrayado del enlace */
-            color: white; /* Establece el color de las letras */
-        }
-
-        .opciones-menu li:hover {
-            display: inline;
-            margin-right: 30px;
-            margin-left: 30px;
-            color: rgb(6, 144, 218);
-            cursor: pointer;
-        }
-
-        .opciones-menu li a:hover {
-            color: rgb(6, 144, 218); /* Cambia el color del texto al pasar el cursor sobre el enlace */
-        }
-
-        .menu a {
-            text-decoration: none; /* Quita el subrayado del enlace */
-            color: white; /* Establece el color de las letras */
-        }
-
-        .cerrar-sesion {
-            border: none;
-            padding: 5px;
-            cursor: pointer;
-            background-color: black;
-            color: white;
-            margin: 0%;
-        }
-
-        .cerrar-sesion:hover {
-            border: none;
-            padding: 5px;
-            cursor: pointer;
-            background-color: black;
-            color: rgb(6, 144, 218);
-            margin: 0%;
         }
 
         .container {
@@ -170,27 +105,33 @@
         .enlaces:hover {
             color: rgb(6, 144, 218);
         }
+
     </style>
 
     <body>
 
         <header>
             <h1>Control de Asistencia a los Ambientes de PTI</h1>
+            <div class="menu">
+                <input type="checkbox" id="menu-toggle"  style="display: none;" />
+                <label for="menu-toggle" class="menu-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <label class="menu-toggle-text">Menu</label>
+                </label>
+                <ul class="menu-items">
+                    <li th:if="${#request.isUserInRole('ADMINISTRADOR')}" > <a th:href="@{${formUserUrl}}" >Registrar usuario</a> </li>
+                    <li th:if="${#request.isUserInRole('ADMINISTRADOR') or #request.isUserInRole('SECRETARIA')}" > <a th:href="@{${formSearchStudentsUrl}}" >Buscar estudiantes</a> </li>
+                    <li th:if="${#request.isUserInRole('SECRETARIA')}" > <a th:href="@{${formEnvironmentsUrl}}" >Registrar ambiente</a> </li>
+                    <li th:if="${#request.isUserInRole('SECRETARIA')}" ><a th:href="@{${formStudent}}" >Registrar Estudiante</a></li>
+                    <li>  <a th:href="@{/logout}" class="cerrar-sesion">Cerrar sesión</a> </li>
+                </ul>
+            </div>
+
+
             <div class="image" >
                 <img src="https://static.wixstatic.com/media/98f7ac_c452ed1bcfcd4b31b04fa05047703a4b~mv2.png/v1/fill/w_2500,h_2500,al_c/98f7ac_c452ed1bcfcd4b31b04fa05047703a4b~mv2.png" alt="Logo de la institucion Minuto de Dios Policarpa Salavarrieta" style="border-radius: 50%;" width="120px">
-            </div>
-            <div class="menu">
-                <!-- Aquí va tu código HTML para el menú -->
-                <ul class="opciones-menu">
-                    <li>
-                        <a th:href="@{${formUserUrl}}" class="enlaces">Registrar usuario</a></li>
-                    <li>
-                        <a th:href="@{${formSearchStudentsUrl}}" class="enlaces">Buscar estudiantes</a></li>
-                    <li>
-                        <a th:href="@{${formEnvironmentsUrl}}" class="enlaces">Registrar ambientes</a></li>
-                </ul>
-                <!-- Botón de "Cerrar sesión" -->
-                <a th:href="@{/logout}" class="cerrar-sesion">Cerrar sesión</a>
             </div>
         </header>
 

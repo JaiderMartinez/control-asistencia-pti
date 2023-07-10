@@ -3,7 +3,6 @@ package com.colegio.asistencia.controllers;
 import com.colegio.asistencia.constants.EndpointPathEnum;
 import com.colegio.asistencia.dto.request.AuthCredentials;
 import com.colegio.asistencia.dto.request.SearchByDniStudentsRequestDto;
-import com.colegio.asistencia.dto.request.UserAsEmployeeResponseDto;
 import com.colegio.asistencia.exceptions.DataNotFoundException;
 import com.colegio.asistencia.service.ICommonService;
 import lombok.RequiredArgsConstructor;
@@ -65,7 +64,8 @@ public class CommonController {
     public String showViewIndex(Model model) {
         try {
             String dniFromUserAuthenticated = SecurityContextHolder.getContext().getAuthentication().getName();
-            addAttributesToModel(model, commonService.findUserAuthenticatedByDni(Long.valueOf(dniFromUserAuthenticated)));
+            addAttributesToModel(model);
+            model.addAttribute("userAsEmployeeResponseDto", this.commonService.findUserAuthenticatedByDni(Long.valueOf(dniFromUserAuthenticated)));
             model.addAttribute(ATTRIBUTE_NAME_ENVIRONMENTS, this.commonService.findAllEnvironments());
             return PATH_TEMPLATE_HTML_INDEX.getMessage();
         } catch (DataNotFoundException e) {
@@ -74,11 +74,11 @@ public class CommonController {
         }
     }
 
-    private void addAttributesToModel(Model model, UserAsEmployeeResponseDto userAuthenticated) {
-        model.addAttribute("userAsEmployeeResponseDto", userAuthenticated);
+    private void addAttributesToModel(Model model) {
         model.addAttribute("formUserUrl", EndpointPathEnum.PATH_GET_MAPPING_CREATE_USER.getMessage());
         model.addAttribute("formSearchStudentsUrl", EndpointPathEnum.PATH_GET_MAPPING_FILTER_STUDENTS.getMessage());
         model.addAttribute("formEnvironmentsUrl", EndpointPathEnum.PATH_GET_MAPPING_CREATE_ENVIRONMENT.getMessage());
+        model.addAttribute("formStudent", EndpointPathEnum.PATH_GET_MAPPING_STUDENT.getMessage());
     }
 
     @GetMapping(value = "login")
