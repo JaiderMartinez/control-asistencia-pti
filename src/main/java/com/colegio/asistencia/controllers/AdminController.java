@@ -1,5 +1,6 @@
 package com.colegio.asistencia.controllers;
 
+import com.colegio.asistencia.constants.EndpointPathEnum;
 import com.colegio.asistencia.constants.FilePathEnum;
 import com.colegio.asistencia.dto.request.UserSaveRequestDto;
 import com.colegio.asistencia.exceptions.PersonAlreadyExistsException;
@@ -37,6 +38,14 @@ public class AdminController {
     public String showViewSaveAUser(Model model) {
         model.addAttribute(ATTRIBUTE_SAVE_AND_UPDATE_USER, new UserSaveRequestDto());
         return FilePathEnum.PATH_TEMPLATE_HTML_FORM_CREATE_ACCOUNT_USER.getMessage();
+    }
+
+    private void addAttributesToModel(Model model) {
+        model.addAttribute("formUserUrl", EndpointPathEnum.PATH_GET_MAPPING_CREATE_USER.getMessage());
+        model.addAttribute("formSearchStudentsUrl", EndpointPathEnum.PATH_GET_MAPPING_FILTER_STUDENTS.getMessage());
+        model.addAttribute("formEnvironmentsUrl", EndpointPathEnum.PATH_GET_MAPPING_CREATE_ENVIRONMENT.getMessage());
+        model.addAttribute("formStudent", EndpointPathEnum.PATH_GET_MAPPING_STUDENT.getMessage());
+        model.addAttribute("formCreateReport", EndpointPathEnum.PATH_GET_MAPPING_REPORT.getMessage());
     }
 
     @PostMapping(value = "usuario")

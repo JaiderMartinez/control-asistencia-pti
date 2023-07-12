@@ -8,7 +8,10 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.time.LocalDate;
 
@@ -34,4 +37,8 @@ public class StudentEntity {
     private String residenceAddress;
     @Column(name = "fecha_nacimiento")
     private LocalDate birthDate;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "codigo_pti", referencedColumnName = "codigo_pti")
+    private EnvironmentPtiEntity environmentPtiEntity;
 }

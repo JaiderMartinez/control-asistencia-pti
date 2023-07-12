@@ -1,6 +1,6 @@
 .menu {
-  position: absolute;
-  top: 0px;
+  position: absolute; /* Cambiamos a posición absoluta */
+  top: 80px;
   right: 60px;
   display: inline-block;
 }

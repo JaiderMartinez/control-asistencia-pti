@@ -31,7 +31,7 @@ public class StudentCriteriaRepositoryImplementation implements IStudentCriteria
 
         Join<AttendanceStudentEntity, AttendanceEntity> attendanceJoin = attendanceStudentEntityRoot.join("attendanceEntity");
         Join<AttendanceStudentEntity, StudentEntity> studentJoin = attendanceStudentEntityRoot.join("studentEntity");
-        Join<AttendanceEntity, EnvironmentPtiEntity> environmentJoin = attendanceJoin.join("environmentPtiEntity");
+        Join<StudentEntity, EnvironmentPtiEntity> environmentJoin = studentJoin.join("environmentPtiEntity");
 
         query.select(cb.construct(
                 StudentAttendanceDto.class,

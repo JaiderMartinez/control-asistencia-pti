@@ -1,5 +1,6 @@
 package com.colegio.asistencia.controllers;
 
+import com.colegio.asistencia.constants.EndpointPathEnum;
 import com.colegio.asistencia.constants.FilePathEnum;
 import com.colegio.asistencia.dto.request.CreateEnvironmentPtiRequestDto;
 import com.colegio.asistencia.dto.request.StudentRequestDto;
@@ -33,7 +34,15 @@ public class SecretaryController {
     @PreAuthorize(value = "hasRole('SECRETARIA')")
     public String showFormCreateEnvironmentsPTI(Model model) {
         model.addAttribute("createEnvironmentPtiRequestDto", new CreateEnvironmentPtiRequestDto());
+        addAttributesToModel(model);
         return FilePathEnum.PATH_TEMPLATE_HTML_FORM_REGISTER_ENVIRONMENT.getMessage();
+    }
+
+    private void addAttributesToModel(Model model) {
+        model.addAttribute("formUserUrl", EndpointPathEnum.PATH_GET_MAPPING_CREATE_USER.getMessage());
+        model.addAttribute("formSearchStudentsUrl", EndpointPathEnum.PATH_GET_MAPPING_FILTER_STUDENTS.getMessage());
+        model.addAttribute("formEnvironmentsUrl", EndpointPathEnum.PATH_GET_MAPPING_CREATE_ENVIRONMENT.getMessage());
+        model.addAttribute("formStudent", EndpointPathEnum.PATH_GET_MAPPING_STUDENT.getMessage());
     }
 
     @PostMapping(value = "create-environment")
@@ -52,6 +61,7 @@ public class SecretaryController {
     @PreAuthorize(value = "hasRole('SECRETARIA')")
     public String showStudentRegistrationForm(Model model) {
         model.addAttribute("studentRequestDto", new StudentRequestDto());
+        addAttributesToModel(model);
         return FilePathEnum.PATH_TEMPLATE_HTML_FORM_REGISTER_STUDENT.getMessage();
     }
 
@@ -74,6 +84,7 @@ public class SecretaryController {
     @GetMapping(value = "estudiante/editar/{dniStudent}")
     @PreAuthorize(value = "hasRole('SECRETARIA')")
     public String showStudentDataByDni(Model model, @PathVariable(name = "dniStudent") String dniStudent) {
+        addAttributesToModel(model);
         try {
             model.addAttribute("studentUpdateRequest", this.secretaryService.findStudentByDni(dniStudent));
         } catch ( PersonNotExistsException e) {

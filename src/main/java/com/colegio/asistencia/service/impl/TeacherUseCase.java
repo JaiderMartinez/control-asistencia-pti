@@ -42,7 +42,7 @@ public class TeacherUseCase implements ITeacherService {
     private final IStudentCriteriaRepository studentCriteriaRepository;
 
     @Override
-    public void generatedReportInFormatPdf(Long codeEnvironmentPti, String pathToSaveFile) throws FileNotFoundException, DocumentException, UsernameNotFoundException, DataNotFoundException {
+    public void generatedReportInFormatPdf(Long codeEnvironmentPti, String pathToSaveFile) throws FileNotFoundException, DocumentException, UsernameNotFoundException, DataNotFoundException, IllegalArgumentException {
         EnvironmentPtiEntity environmentPtiEntity = getEnvironmentPtiEntityByCodePti(codeEnvironmentPti);
         Document document = createDocument(pathToSaveFile);
         PDFDesigner designerPdf = new PDFDesigner();
@@ -72,7 +72,7 @@ public class TeacherUseCase implements ITeacherService {
         return pathToSaveFileWithExtension.toString();
     }
 
-    private Document createDocument(String pathToSaveFile) throws FileNotFoundException, DocumentException {
+    private Document createDocument(String pathToSaveFile) throws FileNotFoundException, DocumentException, IllegalArgumentException {
         Document document = new Document();
         PdfWriter.getInstance(document, new FileOutputStream(validateAndAdjustFilePath(pathToSaveFile)));
         return document;

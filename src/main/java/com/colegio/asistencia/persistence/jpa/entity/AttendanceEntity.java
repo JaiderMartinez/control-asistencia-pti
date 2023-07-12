@@ -10,12 +10,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @AllArgsConstructor
@@ -36,8 +33,4 @@ public class AttendanceEntity {
     private AttendanceTypeEnum attendanceType;
     @Column(name = "observaciones")
     private String observations;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "codigo_pti", referencedColumnName = "codigo_pti")
-    private EnvironmentPtiEntity environmentPtiEntity;
 }

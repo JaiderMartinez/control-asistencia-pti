@@ -17,7 +17,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import java.io.Serializable;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -26,7 +25,7 @@ import java.io.Serializable;
 @Builder
 @Entity
 @Table(name = "usuarios")
-public class UserEntity implements Serializable {
+public class UserEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,6 +34,7 @@ public class UserEntity implements Serializable {
     private String employeeRole;
     @Column(name = "password")
     private String password;
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "dni", referencedColumnName = "dni")
     @Cascade(CascadeType.ALL)

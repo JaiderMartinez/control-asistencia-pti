@@ -3,12 +3,20 @@
     <head>
         <meta charset="UTF-8">
         <title>Crear Ambientes</title>
+        <link rel="stylesheet" type="text/css"th:href="@{/css/style-menu.css}" >
     </head>
     <style>
         body {
               background-image: url('https://www.solofondos.com/wp-content/uploads/2016/10/f00782bb884ec561736dc81fd6532f30.jpg');
               background-size: cover;
               background-position: center;
+              margin: 0px;
+        }
+
+        header {
+            position: relative;
+            padding: 35px;
+            background-color: #0B3A4D;
         }
 
         form {
@@ -76,6 +84,27 @@
         }
     </script>
     <body>
+
+        <header>
+            <div class="menu">
+                <input type="checkbox" id="menu-toggle"  style="display: none;" />
+                <label for="menu-toggle" class="menu-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <label class="menu-toggle-text">Menu</label>
+                </label>
+                <ul class="menu-items">
+                    <li th:if="${#request.isUserInRole('ADMINISTRADOR')}" > <a th:href="@{${formUserUrl}}" >Registrar usuario</a> </li>
+                    <li th:if="${#request.isUserInRole('ADMINISTRADOR') or #request.isUserInRole('SECRETARIA')}" > <a th:href="@{${formSearchStudentsUrl}}" >Buscar estudiantes</a> </li>
+                    <li th:if="${#request.isUserInRole('SECRETARIA')}" > <a th:href="@{${formEnvironmentsUrl}}" >Registrar ambiente</a> </li>
+                    <li th:if="${#request.isUserInRole('SECRETARIA')}" ><a th:href="@{${formStudent}}" >Registrar Estudiante</a></li>
+                    <li th:if="${#request.isUserInRole('DOCENTE')}" ><a th:href="@{${formCreateReport}}" >Crear Reporte</a></li>
+                    <li>  <a th:href="@{/logout}" class="cerrar-sesion">Cerrar sesión</a> </li>
+                </ul>
+            </div>
+        </header>
+
         <form th:object="${createEnvironmentPtiRequestDto}" th:action="@{/asistencia/create-environment}" onsubmit="disableButton()"  method="post">
             <fieldset>
                 <legend>Crear Ambiente</legend>

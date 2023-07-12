@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface ITeacherService {
 
-    void generatedReportInFormatPdf(Long codeEnvironmentPti, String pathToSaveFile) throws FileNotFoundException, DocumentException, UsernameNotFoundException, DataNotFoundException;
+    void generatedReportInFormatPdf(Long codeEnvironmentPti, String pathToSaveFile) throws FileNotFoundException, DocumentException, UsernameNotFoundException, DataNotFoundException, IllegalArgumentException;
 
     List<EnvironmentOfPTIResponseDto> getAllEnvironmentsByDniOfTheTeacher(Long dniTeacher);
 }

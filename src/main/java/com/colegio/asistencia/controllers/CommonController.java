@@ -79,6 +79,7 @@ public class CommonController {
         model.addAttribute("formSearchStudentsUrl", EndpointPathEnum.PATH_GET_MAPPING_FILTER_STUDENTS.getMessage());
         model.addAttribute("formEnvironmentsUrl", EndpointPathEnum.PATH_GET_MAPPING_CREATE_ENVIRONMENT.getMessage());
         model.addAttribute("formStudent", EndpointPathEnum.PATH_GET_MAPPING_STUDENT.getMessage());
+        model.addAttribute("formCreateReport", EndpointPathEnum.PATH_GET_MAPPING_REPORT.getMessage());
     }
 
     @GetMapping(value = "login")
@@ -93,7 +94,7 @@ public class CommonController {
             this.commonService.singIn(authCredentials, request);
             return "redirect:/asistencia/comun/inicio";
         } catch (AuthenticationException e) {
-            model.addAttribute(MESSAGE_MODEL_ATTRIBUTE_FAILED.getMessage(), MESSAGE_BAD_CREDENTIALS);
+            model.addAttribute(MESSAGE_MODEL_ATTRIBUTE_FAILED.getMessage(), MESSAGE_BAD_CREDENTIALS.getMessage());
             return PATH_TEMPLATE_HTML_FORM_LOGIN.getMessage();
         }
     }
