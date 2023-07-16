@@ -4,7 +4,7 @@
     <title>Asistencia</title>
 
     <link rel="stylesheet" type="text/css"th:href="@{/css/asistencia.css}" >
-
+    <link rel="stylesheet" type="text/css"th:href="@{/css/style-header.css}" >
 </head>
 
 <script>
@@ -16,6 +16,7 @@
 </script>
 
 <body>
+    <header th:include="header :: header" th:with="formUserUrl=${formUserUrl}, formSearchStudentsUrl=${formSearchStudentsUrl}, formEnvironmentsUrl=${formEnvironmentsUrl}, formStudent=${formStudent}, formCreateReport=${formCreateReport}"></header>
     <h1>Toma de Asistencia de <p style="display: inline;" th:text="${ambiente}">Nombre del Ambiente</p></h1>
 
     <form class="formulario" th:action="@{/asistencia/docente/ambiente/guardando/estudiantes}" method="post" onsubmit="disableButton()" >

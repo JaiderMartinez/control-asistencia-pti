@@ -1,5 +1,6 @@
 package com.colegio.asistencia.configurations;
 
+import com.colegio.asistencia.models.Constants;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -14,9 +15,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-
-import static com.colegio.asistencia.models.constants.EndpointPathEnum.PATH_GET_MAPPING_INDEX;
-import static com.colegio.asistencia.models.constants.EndpointPathEnum.PATH_GET_MAPPING_LOGIN;
 
 @RequiredArgsConstructor
 @Configuration
@@ -59,14 +57,14 @@ public class WebSecurityConfiguration {
                         .authenticated())
                 .formLogin()
                         .permitAll()
-                        .loginPage(PATH_GET_MAPPING_LOGIN.getMessage())
+                        .loginPage(Constants.PATH_GET_MAPPING_LOGIN)
                         .usernameParameter(USERNAME_PARAMETER).passwordParameter(PASSWORD_PARAMETER)
-                        .defaultSuccessUrl(PATH_GET_MAPPING_INDEX.getMessage(), true)
-                        .failureUrl(PATH_GET_MAPPING_LOGIN.getMessage())
+                        .defaultSuccessUrl(Constants.PATH_GET_MAPPING_INDEX, true)
+                        .failureUrl(Constants.PATH_GET_MAPPING_LOGIN)
                         .and()
                 .logout()
                         .logoutUrl("/logout")
-                        .logoutSuccessUrl(PATH_GET_MAPPING_LOGIN.getMessage())
+                        .logoutSuccessUrl(Constants.PATH_GET_MAPPING_LOGIN)
                         .permitAll()
                         .and()
                 .build();

@@ -1,6 +1,6 @@
 package com.colegio.asistencia.services.implementations;
 
-import com.colegio.asistencia.models.constants.MessageEnum;
+import com.colegio.asistencia.models.Constants;
 import com.colegio.asistencia.dtos.request.AuthCredentials;
 import com.colegio.asistencia.dtos.request.UserAsEmployeeResponseDto;
 import com.colegio.asistencia.dtos.response.EnvironmentOfPTIResponseDto;
@@ -49,7 +49,7 @@ public class CommonServiceImpl implements ICommonService {
     public List<EnvironmentOfPTIResponseDto> findAllEnvironments() {
         List<EnvironmentPtiEntity> listOfEnvironmentsPtiEntities = environmentPtiRepository.findAll();
         if (listOfEnvironmentsPtiEntities.isEmpty() )
-            throw new DataNotFoundException(MessageEnum.MESSAGE_ENVIRONMENTS_OF_PTI_EMPTY.getMessage());
+            throw new DataNotFoundException(Constants.MESSAGE_ENVIRONMENTS_OF_PTI_EMPTY);
         return listOfEnvironmentsPtiEntities.stream().map(EnvironmentMapper::toEnvironmentsOfPTIResponseDto).toList();
     }
 

@@ -1,7 +1,6 @@
 package com.colegio.asistencia.controllers;
 
-import com.colegio.asistencia.models.constants.EndpointPathEnum;
-import com.colegio.asistencia.models.constants.FilePathEnum;
+import com.colegio.asistencia.models.Constants;
 import com.colegio.asistencia.dtos.request.UserSaveRequestDto;
 import com.colegio.asistencia.exceptions.PersonAlreadyExistsException;
 import com.colegio.asistencia.exceptions.FieldStructInvalidException;
@@ -19,10 +18,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import static com.colegio.asistencia.models.constants.EndpointPathEnum.PATH_GET_MAPPING_CREATE_USER;
-import static com.colegio.asistencia.models.constants.MessageEnum.MESSAGE_MODEL_ATTRIBUTE_FAILED;
-import static com.colegio.asistencia.models.constants.MessageEnum.MESSAGE_MODEL_ATTRIBUTE_SUCCESS;
-
 @Controller
 @RequestMapping(path = "/asistencia/")
 @RequiredArgsConstructor
@@ -37,16 +32,8 @@ public class AdminController {
     @PreAuthorize(value = "hasRole('ADMINISTRADOR')")
     public String showViewSaveAUser(Model model) {
         model.addAttribute(ATTRIBUTE_SAVE_AND_UPDATE_USER, new UserSaveRequestDto());
-        addAttributesOfTheMenu(model);
-        return FilePathEnum.PATH_TEMPLATE_HTML_FORM_CREATE_ACCOUNT_USER.getMessage();
-    }
-
-    private void addAttributesOfTheMenu(Model model) {
-        model.addAttribute("formUserUrl", EndpointPathEnum.PATH_GET_MAPPING_CREATE_USER.getMessage());
-        model.addAttribute("formSearchStudentsUrl", EndpointPathEnum.PATH_GET_MAPPING_FILTER_STUDENTS.getMessage());
-        model.addAttribute("formEnvironmentsUrl", EndpointPathEnum.PATH_GET_MAPPING_CREATE_ENVIRONMENT.getMessage());
-        model.addAttribute("formStudent", EndpointPathEnum.PATH_GET_MAPPING_STUDENT.getMessage());
-        model.addAttribute("formCreateReport", EndpointPathEnum.PATH_GET_MAPPING_REPORT.getMessage());
+        Constants.addAttributesOfTheMenu(model);
+        return Constants.PATH_TEMPLATE_HTML_FORM_CREATE_ACCOUNT_USER;
     }
 
     @PostMapping(value = "usuario")
@@ -55,25 +42,25 @@ public class AdminController {
                             RedirectAttributes redirectAttributes) {
         try {
             adminService.saveUser(userSaveRequest);
-            redirectAttributes.addFlashAttribute(MESSAGE_MODEL_ATTRIBUTE_SUCCESS.getMessage(), SUCCESSFULLY_REGISTERED_USER);
+            redirectAttributes.addFlashAttribute(Constants.MESSAGE_MODEL_ATTRIBUTE_SUCCESS, SUCCESSFULLY_REGISTERED_USER);
         } catch (EmptyFieldException | FieldStructInvalidException | WrongPasswordStructureException |
                  PersonAlreadyExistsException e) {
             addAttributeWithTheMessagePrefix(model, e.getMessage());
-            return FilePathEnum.PATH_TEMPLATE_HTML_FORM_CREATE_ACCOUNT_USER.getMessage();
+            return Constants.PATH_TEMPLATE_HTML_FORM_CREATE_ACCOUNT_USER;
         }
-        return "redirect:" + PATH_GET_MAPPING_CREATE_USER.getMessage();
+        return Constants.REDIRECT + Constants.PATH_GET_MAPPING_CREATE_USER;
     }
 
     private void addAttributeWithTheMessagePrefix(Model model, String message) {
-        model.addAttribute(MESSAGE_MODEL_ATTRIBUTE_FAILED.getMessage(), message);
+        model.addAttribute(Constants.MESSAGE_MODEL_ATTRIBUTE_FAILED, message);
     }
 
     @GetMapping(value = "usuario/{dni}/editar")
     @PreAuthorize(value = "hasRole('ADMINISTRADOR')")
     public String userData(Model model, @PathVariable(name = "dni") Long dniUser) {
         model.addAttribute(ATTRIBUTE_SAVE_AND_UPDATE_USER, this.adminService.getUserByDni(dniUser));
-        addAttributesOfTheMenu(model);
-        return FilePathEnum.PATH_TEMPLATE_HTML_EDIT_USER.getMessage();
+        Constants.addAttributesOfTheMenu(model);
+        return Constants.PATH_TEMPLATE_HTML_EDIT_USER;
     }
 
     @PostMapping(value = "usuario/actualizar")
@@ -81,12 +68,12 @@ public class AdminController {
     public String updateUserData(@ModelAttribute(ATTRIBUTE_SAVE_AND_UPDATE_USER) UserSaveRequestDto userSaveRequest, Model model, RedirectAttributes redirectAttributes) {
         try {
             adminService.updateUserData(userSaveRequest);
-            redirectAttributes.addFlashAttribute(MESSAGE_MODEL_ATTRIBUTE_SUCCESS.getMessage(), String.format(USER_SUCCESSFULLY_UPDATED, userSaveRequest.getDni()));
+            redirectAttributes.addFlashAttribute(Constants.MESSAGE_MODEL_ATTRIBUTE_SUCCESS, String.format(USER_SUCCESSFULLY_UPDATED, userSaveRequest.getDni()));
         } catch (EmptyFieldException | FieldStructInvalidException | WrongPasswordStructureException |
                  PersonAlreadyExistsException e) {
             addAttributeWithTheMessagePrefix(model, e.getMessage());
             return "redirect:/asistencia/usuario/" + userSaveRequest.getDni() + "/editar";
         }
-        return "redirect:" + PATH_GET_MAPPING_CREATE_USER.getMessage();
+        return Constants.REDIRECT + Constants.PATH_GET_MAPPING_CREATE_USER;
     }
 }

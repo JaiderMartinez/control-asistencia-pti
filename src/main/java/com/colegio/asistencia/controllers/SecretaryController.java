@@ -1,7 +1,6 @@
 package com.colegio.asistencia.controllers;
 
-import com.colegio.asistencia.models.constants.EndpointPathEnum;
-import com.colegio.asistencia.models.constants.FilePathEnum;
+import com.colegio.asistencia.models.Constants;
 import com.colegio.asistencia.dtos.request.CreateEnvironmentPtiRequestDto;
 import com.colegio.asistencia.dtos.request.StudentRequestDto;
 import com.colegio.asistencia.dtos.request.StudentUpdateRequest;
@@ -20,9 +19,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import static com.colegio.asistencia.models.constants.EndpointPathEnum.PATH_GET_MAPPING_STUDENT;
-import static com.colegio.asistencia.models.constants.MessageEnum.MESSAGE_MODEL_ATTRIBUTE_FAILED;
-
 @Controller
 @RequestMapping(path = "/asistencia/")
 @RequiredArgsConstructor
@@ -34,16 +30,8 @@ public class SecretaryController {
     @PreAuthorize(value = "hasRole('SECRETARIA')")
     public String showFormCreateEnvironmentsPTI(Model model) {
         model.addAttribute("createEnvironmentPtiRequestDto", new CreateEnvironmentPtiRequestDto());
-        addAttributesOfTheMenu(model);
-        return FilePathEnum.PATH_TEMPLATE_HTML_FORM_REGISTER_ENVIRONMENT.getMessage();
-    }
-
-    private void addAttributesOfTheMenu(Model model) {
-        model.addAttribute("formUserUrl", EndpointPathEnum.PATH_GET_MAPPING_CREATE_USER.getMessage());
-        model.addAttribute("formSearchStudentsUrl", EndpointPathEnum.PATH_GET_MAPPING_FILTER_STUDENTS.getMessage());
-        model.addAttribute("formEnvironmentsUrl", EndpointPathEnum.PATH_GET_MAPPING_CREATE_ENVIRONMENT.getMessage());
-        model.addAttribute("formStudent", EndpointPathEnum.PATH_GET_MAPPING_STUDENT.getMessage());
-        model.addAttribute("formCreateReport", EndpointPathEnum.PATH_GET_MAPPING_REPORT.getMessage());
+        Constants.addAttributesOfTheMenu(model);
+        return Constants.PATH_TEMPLATE_HTML_FORM_REGISTER_ENVIRONMENT;
     }
 
     @PostMapping(value = "create-environment")
@@ -53,17 +41,17 @@ public class SecretaryController {
             secretaryService.saveEnvironmentPti(createEnvironmentPtiRequestDto);
         } catch (EmptyFieldException | FieldStructInvalidException | PersonNotExistsException e) {
             sendAttributeWithMessage(model, e.getMessage());
-            return FilePathEnum.PATH_TEMPLATE_HTML_FORM_REGISTER_ENVIRONMENT.getMessage();
+            return Constants.PATH_TEMPLATE_HTML_FORM_REGISTER_ENVIRONMENT;
         }
-        return "redirect:/asistencia/show-form-environments";
+        return Constants.REDIRECT + "/asistencia/show-form-environments";
     }
 
     @GetMapping(value = "estudiante")
     @PreAuthorize(value = "hasRole('SECRETARIA')")
     public String showStudentRegistrationForm(Model model) {
         model.addAttribute("studentRequestDto", new StudentRequestDto());
-        addAttributesOfTheMenu(model);
-        return FilePathEnum.PATH_TEMPLATE_HTML_FORM_REGISTER_STUDENT.getMessage();
+        Constants.addAttributesOfTheMenu(model);
+        return Constants.PATH_TEMPLATE_HTML_FORM_REGISTER_STUDENT;
     }
 
     @PostMapping(value = "estudiante/")
@@ -73,26 +61,26 @@ public class SecretaryController {
             secretaryService.registerStudent(studentRequestDto);
         } catch (PersonAlreadyExistsException e) {
             sendAttributeWithMessage(model, e.getMessage());
-            return FilePathEnum.PATH_TEMPLATE_HTML_FORM_REGISTER_STUDENT.getMessage();
+            return Constants.PATH_TEMPLATE_HTML_FORM_REGISTER_STUDENT;
         }
-        return "redirect:" + PATH_GET_MAPPING_STUDENT.getMessage();
+        return Constants.REDIRECT + Constants.PATH_GET_MAPPING_STUDENT;
     }
 
     private void sendAttributeWithMessage(Model model, String messageError) {
-        model.addAttribute(MESSAGE_MODEL_ATTRIBUTE_FAILED.getMessage(), messageError);
+        model.addAttribute(Constants.MESSAGE_MODEL_ATTRIBUTE_FAILED, messageError);
     }
 
     @GetMapping(value = "estudiante/editar/{dniStudent}")
     @PreAuthorize(value = "hasRole('SECRETARIA')")
     public String showStudentDataByDni(Model model, @PathVariable(name = "dniStudent") String dniStudent) {
-        addAttributesOfTheMenu(model);
+        Constants.addAttributesOfTheMenu(model);
         try {
             model.addAttribute("studentUpdateRequest", this.secretaryService.findStudentByDni(dniStudent));
         } catch ( PersonNotExistsException e) {
             sendAttributeWithMessage(model, e.getMessage());
-            return FilePathEnum.PATH_TEMPLATE_HTML_FORM_UPDATED_STUDENT.getMessage();
+            return Constants.PATH_TEMPLATE_HTML_FORM_UPDATED_STUDENT;
         }
-        return FilePathEnum.PATH_TEMPLATE_HTML_FORM_UPDATED_STUDENT.getMessage();
+        return Constants.PATH_TEMPLATE_HTML_FORM_UPDATED_STUDENT;
     }
 
     @PostMapping(value = "estudiante/actualizado")
@@ -102,8 +90,8 @@ public class SecretaryController {
             this.secretaryService.updateStudentData(studentUpdateRequest);
         } catch (PersonAlreadyExistsException e) {
             sendAttributeWithMessage(model, e.getMessage());
-            return FilePathEnum.PATH_TEMPLATE_HTML_FORM_UPDATED_STUDENT.getMessage();
+            return Constants.PATH_TEMPLATE_HTML_FORM_UPDATED_STUDENT;
         }
-        return "redirect:" + PATH_GET_MAPPING_STUDENT.getMessage();
+        return "redirect:" + Constants.PATH_GET_MAPPING_STUDENT;
     }
 }

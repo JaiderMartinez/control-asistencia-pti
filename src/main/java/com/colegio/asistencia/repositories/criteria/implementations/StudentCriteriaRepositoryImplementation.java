@@ -21,6 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class StudentCriteriaRepositoryImplementation implements IStudentCriteriaRepository {
 
+    private static final String PROPERTY_NAME_ASSISTANCE_TYPE = "attendanceType";
     private final EntityManager entityManager;
 
     @Override
@@ -37,29 +38,29 @@ public class StudentCriteriaRepositoryImplementation implements IStudentCriteria
                 StudentAttendanceCriteria.class,
                 studentJoin.get("name").alias("nombre"),
                 cb.sum(cb.<Integer>selectCase()
-                                .when(cb.equal(attendanceJoin.get("attendanceType"), AttendanceTypeEnum.ASISTENCIA.name()), 1)
+                                .when(cb.equal(attendanceJoin.get(PROPERTY_NAME_ASSISTANCE_TYPE), AttendanceTypeEnum.ASISTENCIA.name()), 1)
                                 .otherwise(0))
                         .as(Integer.class)
                         .alias("asistencias"),
                 cb.sum(cb.<Integer>selectCase()
-                                .when(cb.equal(attendanceJoin.get("attendanceType"), AttendanceTypeEnum.INASISTENCIA.name()), 1)
+                                .when(cb.equal(attendanceJoin.get(PROPERTY_NAME_ASSISTANCE_TYPE), AttendanceTypeEnum.INASISTENCIA.name()), 1)
                                 .otherwise(0))
                         .as(Integer.class)
                         .alias("inasistencias"),
                 cb.sum(cb.<Integer>selectCase()
-                                .when(cb.equal(attendanceJoin.get("attendanceType"), AttendanceTypeEnum.EVASION.name()), 1)
+                                .when(cb.equal(attendanceJoin.get(PROPERTY_NAME_ASSISTANCE_TYPE), AttendanceTypeEnum.EVASION.name()), 1)
                                 .otherwise(0))
                         .as(Integer.class)
                         .alias("evasiones"),
                 cb.sum(cb.<Integer>selectCase()
-                                .when(cb.equal(attendanceJoin.get("attendanceType"), AttendanceTypeEnum.RETRASO.name()), 1)
+                                .when(cb.equal(attendanceJoin.get(PROPERTY_NAME_ASSISTANCE_TYPE), AttendanceTypeEnum.RETRASO.name()), 1)
                                 .otherwise(0))
                         .as(Integer.class)
                         .alias("retrasos")
         ));
 
         query.where(cb.equal(environmentJoin.get("codePti"), codeEnvironmentPti));
-        query.groupBy(studentJoin.get("name"));
+        query.groupBy(studentJoin.get("name"), studentJoin.get("lastName"));
 
         return entityManager.createQuery(query).getResultList();
     }
