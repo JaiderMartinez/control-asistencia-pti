@@ -29,6 +29,8 @@ public class StudentEntity {
     private String dniStudent;
     @Column(name = "nombre")
     private String name;
+    @Column(name = "apellido")
+    private String lastName;
     @Column(name = "grado")
     private String grade;
     @Column(name = "numero_contacto_familiar")

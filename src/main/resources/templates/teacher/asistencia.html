@@ -6,37 +6,48 @@
     <link rel="stylesheet" type="text/css"th:href="@{/css/asistencia.css}" >
 
 </head>
+
+<script>
+        function disableButton() {
+            var button = document.getElementById("button");
+            button.disabled = true;
+            button.value = "Enviando";
+        }
+</script>
+
 <body>
-    <h1>Toma de Asistencia de <h1 th:text="${ambiente}">Nombre del Ambiente</h1></h1>
+    <h1>Toma de Asistencia de <p style="display: inline;" th:text="${ambiente}">Nombre del Ambiente</p></h1>
 
-    <div class="encasulado">
-    <table>
-        <tr>
-            <th>DNI</th>
-            <th>Nombres</th>
-            <th>Apellidos</th>
-            <th>Asistencia</th>
-        </tr>
-        <tr th:each="student: ${students}">
-            <td th:text="${student.dni}">identificacion</td>
-            <td th:text="${student.name}">Nombre</td>
-            <td th:text="${student.lastName}">Apellido</td>
-            <td>
-                <select>
-                    <option value="">Asistió</option>
-                    <option value="tarde">inasistencia</option>
-                    <option value="ausente">Evasión</option>
-                </select>
-            </td>
-        </tr>
-       
-    </table>
+    <form class="formulario" th:action="@{/asistencia/docente/ambiente/guardando/estudiantes}" method="post" onsubmit="disableButton()" >
+        <div class="encasulado">
+        <table>
+            <tr>
+                <th>DNI</th>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>Asistencia</th>
+            </tr>
+            <tr th:each="student, studentIndex : ${students}">
+                <td th:text="${student.dni}" >identificacion</td>
+                <td th:text="${student.name}">Nombre</td>
+                <td th:text="${student.lastName}">Apellido</td>
+                <td>
+                    <input type="hidden" th:name="studentsDni" th:value="${student.dni}" />
+                    <select th:name="studentAttendance">
+                        <option value="ASISTENCIA">Asistió</option>
+                        <option value="INASISTENCIA">Inasistencia</option>
+                        <option value="EVASION">Evasión</option>
+                        <option value="RETRASO">Retraso</option>
+                    </select>
+                </td>
+            </tr>
 
-    
-</div>
+        </table>
 
-<a href="#"></a><input class="guardado" type="button" value="Guardar"></a>
+        </div>
 
+        <input class="guardado" type="submit" value="Guardar">
+    </form>
 
 </body>
 </html>

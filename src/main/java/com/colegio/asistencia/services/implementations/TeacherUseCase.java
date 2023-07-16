@@ -2,16 +2,22 @@ package com.colegio.asistencia.services.implementations;
 
 import com.colegio.asistencia.dtos.response.EnvironmentOfPTIResponseDto;
 import com.colegio.asistencia.dtos.response.TakeAttendanceEnvironmentResponse;
+import com.colegio.asistencia.models.entity.AttendanceEntity;
+import com.colegio.asistencia.models.entity.AttendanceStudentEntity;
 import com.colegio.asistencia.repositories.criteria.IStudentCriteriaRepository;
 import com.colegio.asistencia.models.entity.AttendanceTypeEnum;
 import com.colegio.asistencia.models.entity.EnvironmentPtiEntity;
 import com.colegio.asistencia.models.entity.UserEntity;
 import com.colegio.asistencia.exceptions.DataNotFoundException;
+import com.colegio.asistencia.repositories.jpa.repository.IAttendanceRepository;
+import com.colegio.asistencia.repositories.jpa.repository.IAttendanceStudentRepository;
+import com.colegio.asistencia.repositories.jpa.repository.IStudentRepository;
 import com.colegio.asistencia.utils.mapper.EnvironmentMapper;
 import com.colegio.asistencia.models.PDFDesigner;
 import com.colegio.asistencia.repositories.jpa.repository.IEnvironmentPtiRepository;
 import com.colegio.asistencia.repositories.jpa.repository.IUserRepository;
 import com.colegio.asistencia.services.ITeacherService;
+import com.colegio.asistencia.utils.mapper.StudentMapper;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
@@ -21,12 +27,17 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -41,6 +52,9 @@ public class TeacherUseCase implements ITeacherService {
     private final IUserRepository userRepository;
     private final IEnvironmentPtiRepository environmentPtiRepository;
     private final IStudentCriteriaRepository studentCriteriaRepository;
+    private final IStudentRepository studentRepository;
+    private final IAttendanceStudentRepository attendanceStudentRepository;
+    private final IAttendanceRepository attendanceRepository;
 
     @Override
     public void generatedReportInFormatPdf(Long codeEnvironmentPti, String pathToSaveFile) throws FileNotFoundException, DocumentException, UsernameNotFoundException, DataNotFoundException, IllegalArgumentException {
@@ -132,6 +146,36 @@ public class TeacherUseCase implements ITeacherService {
 
     @Override
     public TakeAttendanceEnvironmentResponse getAllStudentsInAnEnvironmentPti(Long codePti) {
-        return null;
+        Sort sort = Sort.by(Sort.Direction.ASC, "name", "lastName");
+        return StudentMapper
+                .studentEntityToTakeAttendanceEnvironmentResponse(this.studentRepository.
+                        findAllByEnvironmentPtiEntityCodePti(codePti, sort));
+    }
+
+    @Override
+    public void saveStudentsAttendances(List<Long> studentsDni, List<String> typesOfStudentAttendances) {
+        List<AttendanceStudentEntity> attendanceStudentEntities = new ArrayList<>();
+        LocalDateTime currentDateAndTime = LocalDateTime.now();
+        Map<String, AttendanceEntity> attendanceEntityMap = new LinkedHashMap<>();
+        for (int i = 0; i < studentsDni.size(); i++) {
+            AttendanceStudentEntity attendanceStudent = new AttendanceStudentEntity();
+            if (attendanceEntityMap.containsKey(typesOfStudentAttendances.get(i))) {
+                attendanceStudent.setAttendanceEntity(attendanceEntityMap.get(typesOfStudentAttendances.get(i)));
+            } else {
+                attendanceEntityMap.put(typesOfStudentAttendances.get(i),
+                        getAttendanceEntityByAttendanceTypeEnum(typesOfStudentAttendances.get(i))
+                );
+                attendanceStudent.setAttendanceEntity(attendanceEntityMap.get(typesOfStudentAttendances.get(i)));
+            }
+            attendanceStudent.setStudentEntity(StudentMapper.toStudentEntity(studentsDni.get(i)));
+            attendanceStudent.setDateTime(currentDateAndTime);
+
+            attendanceStudentEntities.add(attendanceStudent);
+        }
+        this.attendanceStudentRepository.saveAll(attendanceStudentEntities);
+    }
+
+    private AttendanceEntity getAttendanceEntityByAttendanceTypeEnum(String attendanceType) {
+        return this.attendanceRepository.findByAttendanceType(AttendanceTypeEnum.valueOf(attendanceType));
     }
 }

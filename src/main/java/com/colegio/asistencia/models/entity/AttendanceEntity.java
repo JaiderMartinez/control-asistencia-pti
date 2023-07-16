@@ -31,6 +31,4 @@ public class AttendanceEntity {
     @Column(name = "tipo")
     @Enumerated(EnumType.STRING)
     private AttendanceTypeEnum attendanceType;
-    @Column(name = "observaciones")
-    private String observations;
 }

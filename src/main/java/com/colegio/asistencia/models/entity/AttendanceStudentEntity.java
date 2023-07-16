@@ -39,4 +39,6 @@ public class AttendanceStudentEntity {
 
     @Column(name = "fecha_hora")
     private LocalDateTime dateTime;
+    @Column(name = "observaciones")
+    private String observations;
 }

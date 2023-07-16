@@ -18,6 +18,7 @@ public class StudentResponse {
 
     private String dni;
     private String name;
+    private String lastName;
     private String grade;
     private String familyContactNumber;
     private String address;

@@ -16,4 +16,6 @@ public interface ITeacherService {
     List<EnvironmentOfPTIResponseDto> getAllEnvironmentsByDniOfTheTeacher(Long dniTeacher);
 
     TakeAttendanceEnvironmentResponse getAllStudentsInAnEnvironmentPti(Long codePti);
+
+    void saveStudentsAttendances(List<Long> studentsDni, List<String> typesOfStudentAttendances);
 }
