@@ -1,0 +1,84 @@
+.menu {
+  position: absolute; /* Cambiamos a posición absoluta */
+  top: 80px;
+  right: 60px;
+  display: inline-block;
+}
+
+.menu-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu-icon span {
+  width: 30px;
+  height: 3px;
+  background-color: white;
+  margin-bottom: 5px;
+  transition: transform 0.3s ease;
+}
+
+/*Estilo de la palabra Menu*/
+.menu-toggle-text {
+  margin-top: 5px;
+  text-align: center;
+  color: white;
+}
+
+.menu-items {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: black;
+  list-style: none;
+  padding: 50px; /* Agregamos un espaciado interno al menú desplegable */
+  margin-top: 10px; /* Agregamos un espaciado entre el borde y el menú desplegable */
+  display: none;
+  text-align: left;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+.menu-items li {
+  padding: 10px 0; /* Ajustamos el espaciado vertical de los elementos */
+  white-space: nowrap; /* Evita el salto de línea en el texto */
+}
+
+.menu-items li a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s ease; /* Agregamos transición de color */
+}
+
+.menu-items li a:hover {
+  color:  #ccc;; /* Cambiamos el color al pasar el mouse */
+  background-color: #333; /* Agregamos un fondo oscuro */
+}
+
+/* Estilos para el botón de menú cerrado */
+.menu-icon span:nth-child(1),
+.menu-icon span:nth-child(3) {
+  width: 30px; /* Establecemos el mismo ancho */
+}
+
+.menu-icon span:nth-child(2) {
+  width: 30px; /* Establecemos el mismo ancho */
+}
+
+/* Mostrar el menú al hacer clic en el botón */
+#menu-toggle:checked + .menu-icon span:nth-child(1) {
+  transform: rotate(45deg) translate(4px, 6px); /* Ajustamos la posición */
+}
+
+#menu-toggle:checked + .menu-icon span:nth-child(2) {
+  opacity: 0;
+}
+
+#menu-toggle:checked + .menu-icon span:nth-child(3) {
+  transform: rotate(-45deg) translate(4px, -6px); /* Ajustamos la posición */
+}
+
+#menu-toggle:checked ~ .menu-items {
+  display: block;
+}
+

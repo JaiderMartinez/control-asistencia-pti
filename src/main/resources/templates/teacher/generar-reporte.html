@@ -2,33 +2,49 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Generar reporte</title>
+    <link rel="stylesheet" type="text/css"th:href="@{/css/style-reporte.css}" >
 </head>
 <body>
-    <header></header>
+    <header>
+        <div class="menu">
+            <input type="checkbox" id="menu-toggle"  style="display: none;" />
+            <label for="menu-toggle" class="menu-icon">
+                <span></span>
+                <span></span>
+                <span></span>
+                <label class="menu-toggle-text">Menu</label>
+            </label>
+            <ul class="menu-items">
+                <li th:if="${#request.isUserInRole('ADMINISTRADOR')}" > <a th:href="@{${formUserUrl}}" >Registrar usuario</a> </li>
+                <li th:if="${#request.isUserInRole('ADMINISTRADOR') or #request.isUserInRole('SECRETARIA')}" > <a th:href="@{${formSearchStudentsUrl}}" >Buscar estudiantes</a> </li>
+                <li th:if="${#request.isUserInRole('SECRETARIA')}" > <a th:href="@{${formEnvironmentsUrl}}" >Registrar ambiente</a> </li>
+                <li th:if="${#request.isUserInRole('SECRETARIA')}" ><a th:href="@{${formStudent}}" >Registrar Estudiante</a></li>
+                <li th:if="${#request.isUserInRole('DOCENTE')}" ><a th:href="@{${formCreateReport}}" >Crear Reporte</a></li>
+                <li>  <a th:href="@{/logout}" class="cerrar-sesion">Cerrar sesión</a> </li>
+            </ul>
+        </div>
+    </header>
 
     <main>
+        <h1>Generar Reporte de Asistencias de los Estudiantes</h1>
         <form th:action="@{/asistencia/docente/generar-reporte}"  method="post">
 
-            <label for="pathToSavedFile" >Nombre del archivo:</label>
+            <label for="pathToSavedFile" >Ubicacion y Nombre a generar el archivo:</label>
             <input type="text" id="pathToSavedFile" name="pathToSavedFile" required>
 
-            <div class="ambientes">
-                <h2>Potenciando Talento e Intereses</h2>
-                <div class="list-ambientes">
+            <label>Ambientes</label>
+            <select name="codePti" required>
+                <option value="0">Selecionar</option>
+                <option th:each="environment : ${listOfEnvironmentsPTI}" th:value="${environment.codePti}" th:text="${environment.name}"></option>
+            </select>
 
-                    <select name="codePti">
-                        <option value="0">Selecionar</option>
-                        <option th:each="environment : ${listOfEnvironmentsPTI}" th:value="${environment.codePti}" th:text="${environment.name}"></option>
-                    </select>
-
-                </div>
+            <div class="submit-button-container">
+                <input type="submit" id="submitButton" value="Generar Reporte" disabled>
             </div>
-
-            <button type="submit" >Generar Reporte</button>
         </form>
 
-        <div id="message-empty" th:if="${message != null}">
+        <div id="message-error" th:if="${message != null}">
             <span th:text="${message}"></span>
         </div>
     </main>
@@ -36,4 +52,22 @@
     <footer></footer>
 </form>
 </body>
+
+<script>
+    window.onload = function() {
+        var selectElement = document.querySelector("select[name='codePti']");
+        var submitButton = document.getElementById("submitButton");
+
+        selectElement.addEventListener("input", function() {
+            if (selectElement.value !== "0") {
+                submitButton.disabled = false;
+                errorMessage.style.display = "none";
+            } else {
+                submitButton.disabled = true;
+                errorMessage.style.display = "none";
+            }
+        });
+    }
+</script>
+
 </html>

@@ -4,24 +4,23 @@
     <head>
         <meta charset="UTF-8">
         <title>Registrar Usuario</title>
+        <link rel="stylesheet" type="text/css"th:href="@{/css/style-header.css}" >
     </head>
 
     <style>
-        *{
+
+        body{
+            background-color:rgba(198, 195, 195, 0.785);
             padding: 0;
             margin: 0;
         }
 
-        body{
-            background-color:rgba(198, 195, 195, 0.785);
-        }
-        
         h1{
             text-align: center;
             margin: 10px;
             color: rgb(2, 2, 2);
             padding: 10px;
-        }  
+        }
 
         .formulario{
             width: 30%;
@@ -45,7 +44,7 @@
             padding-top: 3px;
             background-color:lavender;
         }
-        
+
         .formulario_input:focus{
             background-color:lavender;
         }
@@ -124,49 +123,52 @@
     </script>
 
     <body>
+
+        <header th:include="header :: header" th:with="formUserUrl=${formUserUrl}, formSearchStudentsUrl=${formSearchStudentsUrl}, formEnvironmentsUrl=${formEnvironmentsUrl}, formStudent=${formStudent}, formCreateReport=${formCreateReport}"></header>
+
         <main>
             <h1>Crear Usuario</h1>
-        <form class="formulario" th:action="@{/asistencia/usuario}" th:object="${userSaveRequestDto}" method="post" onsubmit="disableButton()" >
-            <div id="mensaje_error" th:if="${message != null}">
-                <p th:text="${message}"></p>
-                <br>
-            </div>
+            <form class="formulario" th:action="@{/asistencia/usuario}" th:object="${userSaveRequestDto}" method="post" onsubmit="disableButton()" >
+                <div id="mensaje_error" th:if="${message != null}">
+                    <p th:text="${message}"></p>
+                    <br>
+                </div>
 
-            <div id="mensaje_exitoso" th:if="${successfulMessage != null}">
-                <p th:text="${successfulMessage}"></p>
-                <br>
-            </div>
+                <div id="mensaje_exitoso" th:if="${successfulMessage != null}">
+                    <p th:text="${successfulMessage}"></p>
+                    <br>
+                </div>
 
-            <label>DNI: </label>
-            <input class="formulario_input" type="number" th:field="*{dni}" placeholder="Escribe tu numero de identificacion aqui" required>
-            <br>
-            <label>Nombre: </label>
-            <input class="formulario_input" type="text" th:field="*{name}" placeholder="Escribe tu nombre aqui" required>
-            <br>
-            <label>Apellido: </label>
-            <input class="formulario_input" type="text" th:field="*{lastName}" placeholder="Escribe tu apellido aqui" required>
-            <br>
-            <label>Correo: </label>
-            <input class="formulario_input" type="email" th:field="*{mail}" placeholder="Escribe tu correo aqui" required>
-            <br>
-            <label>Telefono: </label>
-            <div id="telefono-div">
-            <input type="text" value="+57" readonly>
-            <input class="formulario_input" type="number" id="telefono" th:field="*{cellPhone}" placeholder="Escribe tu numero telefonico" required>
-            </div>
-            <br>
-            <label>Cargo: </label>
-            <select class="formulario_input" th:field="*{employeeRole}" required>
-                <option value="">Seleccione</option>
-                <option value="DOCENTE">DOCENTE</option>
-                <option value="ADMINISTRADOR">ADMINISTRADOR</option>
-                <option value="SECRETARIA">SECRETARIA</option>
-            </select>
-            <br>
-            <label>Contraseña: </label>
-            <input class="formulario_input" type="password" th:field="*{password}" placeholder="Escribe una Contraseña" required>
-            <input id="button" type="submit" value="Crear Cuenta" />
-        </form>
+                <label>DNI: </label>
+                <input class="formulario_input" type="number" th:field="*{dni}" placeholder="Escribe tu numero de identificacion aqui" required>
+                <br>
+                <label>Nombre: </label>
+                <input class="formulario_input" type="text" th:field="*{name}" placeholder="Escribe tu nombre aqui" required>
+                <br>
+                <label>Apellido: </label>
+                <input class="formulario_input" type="text" th:field="*{lastName}" placeholder="Escribe tu apellido aqui" required>
+                <br>
+                <label>Correo: </label>
+                <input class="formulario_input" type="email" th:field="*{mail}" placeholder="Escribe tu correo aqui" required>
+                <br>
+                <label>Telefono: </label>
+                <div id="telefono-div">
+                <input type="text" value="+57" readonly>
+                <input class="formulario_input" type="number" id="telefono" th:field="*{cellPhone}" placeholder="Escribe tu numero telefonico" required>
+                </div>
+                <br>
+                <label>Cargo: </label>
+                <select class="formulario_input" th:field="*{employeeRole}" required>
+                    <option value="">Seleccione</option>
+                    <option value="DOCENTE">DOCENTE</option>
+                    <option value="ADMINISTRADOR">ADMINISTRADOR</option>
+                    <option value="SECRETARIA">SECRETARIA</option>
+                </select>
+                <br>
+                <label>Contraseña: </label>
+                <input class="formulario_input" type="password" th:field="*{password}" placeholder="Escribe una Contraseña" required>
+                <input id="button" type="submit" value="Crear Cuenta" />
+            </form>
         </main>
 
     </body>

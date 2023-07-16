@@ -22,7 +22,7 @@
 
     .error-content img {
         width: 50%;
-        clip-path: inset(10% 0 30% 0); /* Ajusta el valor del recorte según tus necesidades */
+        clip-path: inset(10% 0 30% 0);
         margin: -10% auto 0;
         transition: transform 0.5s ease; /* Agrega una transición de transformación de 0.5 segundos */
     }
@@ -43,7 +43,7 @@
     }
 
     .error-content img:hover:after:hover {
-        opacity: 0; /* Oculta el fondo oscuro al pasar el cursor sobre él */
+        opacity: 0;
     }
 
     h1 {
@@ -87,16 +87,14 @@
     </div>
   </div>
   <script th:inline="javascript">
-    // Mostrar el botón después de unos segundos
     setTimeout(function() {
       var mensaje = document.querySelector('.mensaje-redireccion');
       mensaje.classList.add('show');
     }, 3000);
 
-    // Redireccionar después de unos segundos
     setTimeout(function() {
       window.location.href = /*[[@{/asistencia/comun/inicio}]]*/ '';
-    }, 8000); // Cambia el valor "15000" a la cantidad de milisegundos que desees (9 segundos en este ejemplo)
+    }, 8000);
   </script>
 </body>
 </html>

@@ -1,6 +1,6 @@
 package com.colegio.asistencia.configurations;
 
-import com.colegio.asistencia.persistence.jpa.entity.UserEntity;
+import com.colegio.asistencia.models.entity.UserEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,7 +16,7 @@ import java.util.stream.Stream;
 @AllArgsConstructor
 public class UserDetailsImpl implements UserDetails {
 
-    private transient UserEntity user;
+    private UserEntity user;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

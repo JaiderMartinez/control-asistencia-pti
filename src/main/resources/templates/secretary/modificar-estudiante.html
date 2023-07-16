@@ -1,8 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Editar Estudiante</title>
+        <link rel="stylesheet" type="text/css"th:href="@{/css/style-header.css}" >
+    </head>
     <center>
-    <title>Editar Estudiante</title>
     <style type="text/css">
+        body {
+            margin: 0px;
+        }
+
         form {
                 width: 400px;
                 margin: 0 auto;
@@ -49,8 +56,6 @@
               background-size: cover;
               background-position: center;
         }
-
-    
     </style>
     </head>
 
@@ -59,13 +64,14 @@
             var button = document.getElementById("boton-enviar");
             button.disabled = true;
             button.value = "Enviando";
-            setTimeout(function() {
-            // Código que se ejecutará después de un segundo
-             }, 1000);
+            setTimeout(function() { }, 1000);
         }
     </script>
     <body>
-        <form th:object="${studentUpdateRequest}" th:action="@{/asistencia/estudiante/actualizado}" onsubmit="disableButton()"  method="post">
+        <header th:include="header :: header" th:with="formUserUrl=${formUserUrl}, formSearchStudentsUrl=${formSearchStudentsUrl}, formEnvironmentsUrl=${formEnvironmentsUrl}, formStudent=${formStudent}, formCreateReport=${formCreateReport}"></header>
+
+
+    <form th:object="${studentUpdateRequest}" th:action="@{/asistencia/estudiante/actualizado}" onsubmit="disableButton()"  method="post">
             <fieldset>
                 <legend>Modificacion Del Estudiante</legend>
                 <div id="mensaje_error" th:if="${message != null}">

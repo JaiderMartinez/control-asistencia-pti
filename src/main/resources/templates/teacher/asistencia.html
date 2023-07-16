@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Asistencia</title>
+
+    <link rel="stylesheet" type="text/css"th:href="@{/css/asistencia.css}" >
+    <link rel="stylesheet" type="text/css"th:href="@{/css/style-header.css}" >
+</head>
+
+<script>
+        function disableButton() {
+            var button = document.getElementById("button");
+            button.disabled = true;
+            button.value = "Enviando";
+        }
+</script>
+
+<body>
+    <header th:include="header :: header" th:with="formUserUrl=${formUserUrl}, formSearchStudentsUrl=${formSearchStudentsUrl}, formEnvironmentsUrl=${formEnvironmentsUrl}, formStudent=${formStudent}, formCreateReport=${formCreateReport}"></header>
+    <h1>Toma de Asistencia de <p style="display: inline;" th:text="${ambiente}">Nombre del Ambiente</p></h1>
+
+    <form class="formulario" th:action="@{/asistencia/docente/ambiente/guardando/estudiantes}" method="post" onsubmit="disableButton()" >
+        <div class="encasulado">
+        <table>
+            <tr>
+                <th>DNI</th>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>Asistencia</th>
+            </tr>
+            <tr th:each="student, studentIndex : ${students}">
+                <td th:text="${student.dni}" >identificacion</td>
+                <td th:text="${student.name}">Nombre</td>
+                <td th:text="${student.lastName}">Apellido</td>
+                <td>
+                    <input type="hidden" th:name="studentsDni" th:value="${student.dni}" />
+                    <select th:name="studentAttendance">
+                        <option value="ASISTENCIA">Asistió</option>
+                        <option value="INASISTENCIA">Inasistencia</option>
+                        <option value="EVASION">Evasión</option>
+                        <option value="RETRASO">Retraso</option>
+                    </select>
+                </td>
+            </tr>
+
+        </table>
+
+        </div>
+
+        <input class="guardado" type="submit" value="Guardar">
+    </form>
+
+</body>
+</html>

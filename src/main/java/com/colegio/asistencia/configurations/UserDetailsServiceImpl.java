@@ -1,7 +1,7 @@
 package com.colegio.asistencia.configurations;
 
-import com.colegio.asistencia.persistence.jpa.entity.UserEntity;
-import com.colegio.asistencia.persistence.jpa.repository.IUserRepository;
+import com.colegio.asistencia.models.entity.UserEntity;
+import com.colegio.asistencia.repositories.jpa.repository.IUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

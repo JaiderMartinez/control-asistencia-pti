@@ -1,16 +1,25 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Registrar Estudiante</title>
+        <link rel="stylesheet" type="text/css"th:href="@{/css/style-header.css}" >
+    </head>
     <center>
-    <title>Registrar Estudiante</title>
     <style type="text/css">
+        body {
+            margin: 0px;
+        }
+
         form {
                 width: 400px;
                 margin: 0 auto;
         }
+
         label {
                 display: block;
                 margin-top: 1rem;
         }
+
         input, textarea, select {
                 display: block;
                 width: 400px;
@@ -20,12 +29,14 @@
                 border: 1px solid #0b0b0b;
                 font-size: 1rem;
         }
+
         input[type="submit"] {
                 background-color: #dc4848;
                 color: #0f0c0c;
                 padding: 0.5rem 1rem;
                 cursor: pointer;
         }
+
         fieldset {
                 margin-top: 2rem;
                 border-radius: 5px;
@@ -52,19 +63,19 @@
 
     
     </style>
-    </head>
-        <script>
+    <script>
         function disableButton() {
             var button = document.getElementById("boton-enviar");
             button.disabled = true;
             button.value = "Enviando";
-            setTimeout(function() {
-            // Código que se ejecutará después de un segundo
-            }, 1000);
+            setTimeout(function() { }, 1000);
         }
     </script>
     <body>
-        <form th:object="${studentRequestDto}" th:action="@{/asistencia/estudiante/}" onsubmit="disableButton()"  method="post">
+
+    <header th:include="header :: header" th:with="formUserUrl=${formUserUrl}, formSearchStudentsUrl=${formSearchStudentsUrl}, formEnvironmentsUrl=${formEnvironmentsUrl}, formStudent=${formStudent}, formCreateReport=${formCreateReport}"></header>
+
+    <form th:object="${studentRequestDto}" th:action="@{/asistencia/estudiante/}" onsubmit="disableButton()"  method="post">
             <fieldset>
                 <legend>Registrar Estudiante</legend>
                 <div id="mensaje_error" th:if="${message != null}">

@@ -1,6 +1,6 @@
 .menu {
-  position: absolute; /* Cambiamos a posición absoluta */
-  top: 80px;
+  position: absolute;
+  top: 0px;
   right: 60px;
   display: inline-block;
 }
@@ -15,7 +15,7 @@
 .menu-icon span {
   width: 30px;
   height: 3px;
-  background-color: black;
+  background-color: white;
   margin-bottom: 5px;
   transition: transform 0.3s ease;
 }
@@ -24,6 +24,7 @@
 .menu-toggle-text {
   margin-top: 5px;
   text-align: center;
+  color: white;
 }
 
 .menu-items {
@@ -40,7 +41,7 @@
 }
 .menu-items li {
   padding: 10px 0; /* Ajustamos el espaciado vertical de los elementos */
-    white-space: nowrap; /* Evita el salto de línea en el texto */
+  white-space: nowrap; /* Evita el salto de línea en el texto */
 }
 
 .menu-items li a {

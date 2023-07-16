@@ -4,6 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <title>Registrar Usuario</title>
+        <link rel="stylesheet" type="text/css"th:href="@{/css/style-header.css}" >
     </head>
 
     <style>
@@ -124,41 +125,43 @@
     </script>
 
     <body>
+        <header th:include="header :: header" th:with="formUserUrl=${formUserUrl}, formSearchStudentsUrl=${formSearchStudentsUrl}, formEnvironmentsUrl=${formEnvironmentsUrl}, formStudent=${formStudent}, formCreateReport=${formCreateReport}"></header>
+
         <main>
             <h1>Editar Usuario</h1>
-        <form class="formulario" th:action="@{/asistencia/usuario/actualizar}" th:object="${userSaveRequestDto}" method="post" onsubmit="disableButton()" >
-            <div id="mensaje_error" th:if="${message != null}">
-                <p th:text="${message}"></p>
-                <br>
-            </div>
+            <form class="formulario" th:action="@{/asistencia/usuario/actualizar}" th:object="${userSaveRequestDto}" method="post" onsubmit="disableButton()" >
+                <div id="mensaje_error" th:if="${message != null}">
+                    <p th:text="${message}"></p>
+                    <br>
+                </div>
 
-            <div id="mensaje_exitoso" th:if="${successfulMessage != null}">
-                <p th:text="${successfulMessage}"></p>
+                <div id="mensaje_exitoso" th:if="${successfulMessage != null}">
+                    <p th:text="${successfulMessage}"></p>
+                    <br>
+                </div>
+                <input type="hidden" th:field="*{idUser}" readonly style="display: none;">
+                <label>DNI: </label>
+                <input class="formulario_input" type="number" th:field="*{dni}" placeholder="Escribe tu numero de identificacion aqui" readonly>
+                <label>Nombre: </label>
+                <input class="formulario_input" type="text" th:field="*{name}" placeholder="Escribe tu nombre aqui" required>
                 <br>
-            </div>
-            <input type="hidden" th:field="*{idUser}" readonly style="display: none;">
-            <label>DNI: </label>
-            <input class="formulario_input" type="number" th:field="*{dni}" placeholder="Escribe tu numero de identificacion aqui" readonly>
-            <label>Nombre: </label>
-            <input class="formulario_input" type="text" th:field="*{name}" placeholder="Escribe tu nombre aqui" required>
-            <br>
-            <label>Apellido: </label>
-            <input class="formulario_input" type="text" th:field="*{lastName}" placeholder="Escribe tu apellido aqui" required>
-            <br>
-            <label>Correo: </label>
-            <input class="formulario_input" type="email" th:field="*{mail}" placeholder="Escribe tu correo aqui" required>
-            <br>
-            <label>Telefono: </label>
-            <div id="telefono-div">
-            <input type="text" value="+57" id="prefijo-celular" readonly>
-            <input class="formulario_input" type="number" id="telefono" th:field="*{cellPhone}" placeholder="Escribe tu numero telefonico" required>
-            </div>
-            <br>
-            <label>Cargo: </label>
-            <input class="formulario_input" type="text" th:field="*{employeeRole}" readonly>
-            <input type="hidden" th:field="*{password}" style="display: none;">
-            <input id="button" type="submit" value="Editar Cuenta" />
-        </form>
+                <label>Apellido: </label>
+                <input class="formulario_input" type="text" th:field="*{lastName}" placeholder="Escribe tu apellido aqui" required>
+                <br>
+                <label>Correo: </label>
+                <input class="formulario_input" type="email" th:field="*{mail}" placeholder="Escribe tu correo aqui" required>
+                <br>
+                <label>Telefono: </label>
+                <div id="telefono-div">
+                <input type="text" value="+57" id="prefijo-celular" readonly>
+                <input class="formulario_input" type="number" id="telefono" th:field="*{cellPhone}" placeholder="Escribe tu numero telefonico" required>
+                </div>
+                <br>
+                <label>Cargo: </label>
+                <input class="formulario_input" type="text" th:field="*{employeeRole}" readonly>
+                <input type="hidden" th:field="*{password}" style="display: none;">
+                <input id="button" type="submit" value="Editar Cuenta" />
+            </form>
         </main>
 
     </body>
