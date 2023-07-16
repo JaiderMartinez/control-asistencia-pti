@@ -1,8 +1,9 @@
 package com.colegio.asistencia.controllers;
 
-import com.colegio.asistencia.constants.EndpointPathEnum;
+import com.colegio.asistencia.models.constants.EndpointPathEnum;
+import com.colegio.asistencia.dtos.response.TakeAttendanceEnvironmentResponse;
 import com.colegio.asistencia.exceptions.DataNotFoundException;
-import com.colegio.asistencia.service.ITeacherService;
+import com.colegio.asistencia.services.ITeacherService;
 import com.itextpdf.text.DocumentException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,10 +20,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.FileNotFoundException;
 
-import static com.colegio.asistencia.constants.EndpointPathEnum.PATH_GET_MAPPING_REPORT;
-import static com.colegio.asistencia.constants.FilePathEnum.PATH_TEMPLATE_HTML_GENERATE_REPORT;
-import static com.colegio.asistencia.constants.MessageEnum.MESSAGE_MODEL_ATTRIBUTE_FAILED;
-import static com.colegio.asistencia.constants.MessageEnum.MESSAGE_REPORT_GENERATED_SUCCESSFULLY;
+import static com.colegio.asistencia.models.constants.EndpointPathEnum.PATH_GET_MAPPING_REPORT;
+import static com.colegio.asistencia.models.constants.FilePathEnum.PATH_TEMPLATE_HTML_GENERATE_REPORT;
+import static com.colegio.asistencia.models.constants.FilePathEnum.PATH_TEMPLATE_HTML_SHOW_STUDENTS;
+import static com.colegio.asistencia.models.constants.MessageEnum.MESSAGE_MODEL_ATTRIBUTE_FAILED;
+import static com.colegio.asistencia.models.constants.MessageEnum.MESSAGE_REPORT_GENERATED_SUCCESSFULLY;
 
 @Controller
 @RequestMapping(path = "/asistencia/docente")
@@ -37,7 +39,8 @@ public class TeacherController {
     public String report(Model model, @ModelAttribute("message") String messageError) {
         String dniFromUserAuthenticated = SecurityContextHolder.getContext().getAuthentication().getName();
         model.addAttribute(ATTRIBUTE_NAME_ENVIRONMENTS, this.teacherService.getAllEnvironmentsByDniOfTheTeacher(Long.valueOf(dniFromUserAuthenticated)));
-        addAttributeWithTheMessagePrefix(model, messageError);
+        sendAttributeWithMessage(model, messageError);
+        addAttributesOfTheMenu(model);
         return PATH_TEMPLATE_HTML_GENERATE_REPORT.getMessage();
     }
 
@@ -58,16 +61,24 @@ public class TeacherController {
         redirectAttributes.addFlashAttribute(MESSAGE_MODEL_ATTRIBUTE_FAILED.getMessage(), message);
     }
 
-    private void addAttributeWithTheMessagePrefix(Model model, String message) {
+    private void sendAttributeWithMessage(Model model, String message) {
         model.addAttribute(MESSAGE_MODEL_ATTRIBUTE_FAILED.getMessage(), message);
     }
 
-    private void addAttributesToModel(Model model) {
+    private void addAttributesOfTheMenu(Model model) {
         model.addAttribute("formUserUrl", EndpointPathEnum.PATH_GET_MAPPING_CREATE_USER.getMessage());
         model.addAttribute("formSearchStudentsUrl", EndpointPathEnum.PATH_GET_MAPPING_FILTER_STUDENTS.getMessage());
         model.addAttribute("formEnvironmentsUrl", EndpointPathEnum.PATH_GET_MAPPING_CREATE_ENVIRONMENT.getMessage());
         model.addAttribute("formStudent", EndpointPathEnum.PATH_GET_MAPPING_STUDENT.getMessage());
         model.addAttribute("formCreateReport", EndpointPathEnum.PATH_GET_MAPPING_REPORT.getMessage());
+    }
+
+    @GetMapping(value = "/ambiente/{codePti}")
+    public String showStudentsOfTheAEnvironmentPTI(Model model, Long codePti) {
+        TakeAttendanceEnvironmentResponse studentsOfTheAnEnvironment = this.teacherService.getAllStudentsInAnEnvironmentPti(codePti);
+        model.addAttribute("ambiente", studentsOfTheAnEnvironment.getEnvironmentName());
+        model.addAttribute("students", studentsOfTheAnEnvironment.getStudents());
+        return PATH_TEMPLATE_HTML_SHOW_STUDENTS.getMessage();
     }
 
     @PostMapping(value = "/estudiantes/finalizar")

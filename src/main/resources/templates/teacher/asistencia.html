@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Asistencia</title>
+
+    <link rel="stylesheet" type="text/css"th:href="@{/css/asistencia.css}" >
+
+</head>
+<body>
+    <h1>Toma de Asistencia de <h1 th:text="${ambiente}">Nombre del Ambiente</h1></h1>
+
+    <div class="encasulado">
+    <table>
+        <tr>
+            <th>DNI</th>
+            <th>Nombres</th>
+            <th>Apellidos</th>
+            <th>Asistencia</th>
+        </tr>
+        <tr th:each="student: ${students}">
+            <td th:text="${student.dni}">identificacion</td>
+            <td th:text="${student.name}">Nombre</td>
+            <td th:text="${student.lastName}">Apellido</td>
+            <td>
+                <select>
+                    <option value="">Asistió</option>
+                    <option value="tarde">inasistencia</option>
+                    <option value="ausente">Evasión</option>
+                </select>
+            </td>
+        </tr>
+       
+    </table>
+
+    
+</div>
+
+<a href="#"></a><input class="guardado" type="button" value="Guardar"></a>
+
+
+</body>
+</html>

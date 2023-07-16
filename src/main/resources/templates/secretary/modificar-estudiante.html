@@ -62,8 +62,6 @@
               background-size: cover;
               background-position: center;
         }
-
-    
     </style>
     </head>
 
@@ -72,9 +70,7 @@
             var button = document.getElementById("boton-enviar");
             button.disabled = true;
             button.value = "Enviando";
-            setTimeout(function() {
-            // Código que se ejecutará después de un segundo
-             }, 1000);
+            setTimeout(function() { }, 1000);
         }
     </script>
     <body>
@@ -98,7 +94,7 @@
             </div>
         </header>
 
-        <form th:object="${studentUpdateRequest}" th:action="@{/asistencia/estudiante/actualizado}" onsubmit="disableButton()"  method="post">
+    <form th:object="${studentUpdateRequest}" th:action="@{/asistencia/estudiante/actualizado}" onsubmit="disableButton()"  method="post">
             <fieldset>
                 <legend>Modificacion Del Estudiante</legend>
                 <div id="mensaje_error" th:if="${message != null}">

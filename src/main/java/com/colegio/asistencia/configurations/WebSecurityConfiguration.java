@@ -15,8 +15,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-import static com.colegio.asistencia.constants.EndpointPathEnum.PATH_GET_MAPPING_INDEX;
-import static com.colegio.asistencia.constants.EndpointPathEnum.PATH_GET_MAPPING_LOGIN;
+import static com.colegio.asistencia.models.constants.EndpointPathEnum.PATH_GET_MAPPING_INDEX;
+import static com.colegio.asistencia.models.constants.EndpointPathEnum.PATH_GET_MAPPING_LOGIN;
 
 @RequiredArgsConstructor
 @Configuration
@@ -28,7 +28,6 @@ public class WebSecurityConfiguration {
     private static final String PASSWORD_PARAMETER = "password";
     private static final String[] resources = new String[]{"/include/**","/css/**","/static/**","/img/**","/js/**","/layer/**",
             "/index/inicio-sesion", "/asistencia/comun/sing-in", "/asistencia/reporte"};
-
     private final UserDetailsServiceImpl userDetailsService;
 
     @Bean

@@ -1,12 +1,12 @@
 package com.colegio.asistencia.controllers;
 
-import com.colegio.asistencia.constants.EndpointPathEnum;
-import com.colegio.asistencia.constants.FilePathEnum;
-import com.colegio.asistencia.dto.request.UserSaveRequestDto;
+import com.colegio.asistencia.models.constants.EndpointPathEnum;
+import com.colegio.asistencia.models.constants.FilePathEnum;
+import com.colegio.asistencia.dtos.request.UserSaveRequestDto;
 import com.colegio.asistencia.exceptions.PersonAlreadyExistsException;
 import com.colegio.asistencia.exceptions.FieldStructInvalidException;
 import com.colegio.asistencia.exceptions.WrongPasswordStructureException;
-import com.colegio.asistencia.service.IAdminService;
+import com.colegio.asistencia.services.IAdminService;
 import com.colegio.asistencia.exceptions.EmptyFieldException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import static com.colegio.asistencia.constants.EndpointPathEnum.PATH_GET_MAPPING_CREATE_USER;
-import static com.colegio.asistencia.constants.MessageEnum.MESSAGE_MODEL_ATTRIBUTE_FAILED;
-import static com.colegio.asistencia.constants.MessageEnum.MESSAGE_MODEL_ATTRIBUTE_SUCCESS;
+import static com.colegio.asistencia.models.constants.EndpointPathEnum.PATH_GET_MAPPING_CREATE_USER;
+import static com.colegio.asistencia.models.constants.MessageEnum.MESSAGE_MODEL_ATTRIBUTE_FAILED;
+import static com.colegio.asistencia.models.constants.MessageEnum.MESSAGE_MODEL_ATTRIBUTE_SUCCESS;
 
 @Controller
 @RequestMapping(path = "/asistencia/")
@@ -37,10 +37,11 @@ public class AdminController {
     @PreAuthorize(value = "hasRole('ADMINISTRADOR')")
     public String showViewSaveAUser(Model model) {
         model.addAttribute(ATTRIBUTE_SAVE_AND_UPDATE_USER, new UserSaveRequestDto());
+        addAttributesOfTheMenu(model);
         return FilePathEnum.PATH_TEMPLATE_HTML_FORM_CREATE_ACCOUNT_USER.getMessage();
     }
 
-    private void addAttributesToModel(Model model) {
+    private void addAttributesOfTheMenu(Model model) {
         model.addAttribute("formUserUrl", EndpointPathEnum.PATH_GET_MAPPING_CREATE_USER.getMessage());
         model.addAttribute("formSearchStudentsUrl", EndpointPathEnum.PATH_GET_MAPPING_FILTER_STUDENTS.getMessage());
         model.addAttribute("formEnvironmentsUrl", EndpointPathEnum.PATH_GET_MAPPING_CREATE_ENVIRONMENT.getMessage());
@@ -71,6 +72,7 @@ public class AdminController {
     @PreAuthorize(value = "hasRole('ADMINISTRADOR')")
     public String userData(Model model, @PathVariable(name = "dni") Long dniUser) {
         model.addAttribute(ATTRIBUTE_SAVE_AND_UPDATE_USER, this.adminService.getUserByDni(dniUser));
+        addAttributesOfTheMenu(model);
         return FilePathEnum.PATH_TEMPLATE_HTML_EDIT_USER.getMessage();
     }
 

@@ -1,10 +1,10 @@
 package com.colegio.asistencia.controllers;
 
-import com.colegio.asistencia.constants.EndpointPathEnum;
-import com.colegio.asistencia.dto.request.AuthCredentials;
-import com.colegio.asistencia.dto.request.SearchByDniStudentsRequestDto;
+import com.colegio.asistencia.models.constants.EndpointPathEnum;
+import com.colegio.asistencia.dtos.request.AuthCredentials;
+import com.colegio.asistencia.dtos.request.SearchByDniStudentsRequestDto;
 import com.colegio.asistencia.exceptions.DataNotFoundException;
-import com.colegio.asistencia.service.ICommonService;
+import com.colegio.asistencia.services.ICommonService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,11 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 
-import static com.colegio.asistencia.constants.FilePathEnum.PATH_TEMPLATE_HTML_FORM_LOGIN;
-import static com.colegio.asistencia.constants.FilePathEnum.PATH_TEMPLATE_HTML_INDEX;
-import static com.colegio.asistencia.constants.FilePathEnum.PATH_TEMPLATE_HTML_SEARCH_STUDENTS_BY_DNI;
-import static com.colegio.asistencia.constants.MessageEnum.MESSAGE_BAD_CREDENTIALS;
-import static com.colegio.asistencia.constants.MessageEnum.MESSAGE_MODEL_ATTRIBUTE_FAILED;
+import static com.colegio.asistencia.models.constants.FilePathEnum.PATH_TEMPLATE_HTML_FORM_LOGIN;
+import static com.colegio.asistencia.models.constants.FilePathEnum.PATH_TEMPLATE_HTML_INDEX;
+import static com.colegio.asistencia.models.constants.FilePathEnum.PATH_TEMPLATE_HTML_SEARCH_STUDENTS_BY_DNI;
+import static com.colegio.asistencia.models.constants.MessageEnum.MESSAGE_BAD_CREDENTIALS;
+import static com.colegio.asistencia.models.constants.MessageEnum.MESSAGE_MODEL_ATTRIBUTE_FAILED;
 
 @Controller
 @RequestMapping(path = "/asistencia/comun/")

@@ -71,16 +71,14 @@
     </div>
 
   <script th:inline="javascript">
-    // Mostrar el botón después de unos segundos
     setTimeout(function() {
       var button = document.querySelector('.button');
       button.classList.add('show');
     }, 3000);
 
-    // Redireccionar después de unos segundos
     setTimeout(function() {
       window.location.href = /*[[@{/asistencia/comun/inicio}]]*/ '';
-    }, 8000); // Cambia el valor "15000" a la cantidad de milisegundos que desees (9 segundos en este ejemplo)
+    }, 8000); 
   </script>
 </body>
 </html>

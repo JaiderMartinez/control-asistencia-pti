@@ -40,7 +40,7 @@
             </select>
 
             <div class="submit-button-container">
-                <input type="submit" value="Generar Reporte">
+                <input type="submit" id="submitButton" value="Generar Reporte" disabled>
             </div>
         </form>
 
@@ -52,4 +52,22 @@
     <footer></footer>
 </form>
 </body>
+
+<script>
+    window.onload = function() {
+        var selectElement = document.querySelector("select[name='codePti']");
+        var submitButton = document.getElementById("submitButton");
+
+        selectElement.addEventListener("input", function() {
+            if (selectElement.value !== "0") {
+                submitButton.disabled = false;
+                errorMessage.style.display = "none";
+            } else {
+                submitButton.disabled = true;
+                errorMessage.style.display = "none";
+            }
+        });
+    }
+</script>
+
 </html>
