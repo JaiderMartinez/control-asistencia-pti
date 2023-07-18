@@ -24,4 +24,5 @@ public class StudentResponse {
     private String address;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
+    private Long codePti;
 }

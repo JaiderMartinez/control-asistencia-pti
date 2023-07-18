@@ -31,10 +31,11 @@ public class Constants {
     private Constants() { }
 
     public static void addAttributesOfTheMenu(Model model) {
-        model.addAttribute("formUserUrl", Constants.PATH_GET_MAPPING_CREATE_USER);
-        model.addAttribute("formSearchStudentsUrl", Constants.PATH_GET_MAPPING_FILTER_STUDENTS);
-        model.addAttribute("formEnvironmentsUrl", Constants.PATH_GET_MAPPING_CREATE_ENVIRONMENT);
-        model.addAttribute("formStudent", Constants.PATH_GET_MAPPING_STUDENT);
-        model.addAttribute("formCreateReport", Constants.PATH_GET_MAPPING_REPORT);
+        model.addAttribute("formUserUrl", PATH_GET_MAPPING_CREATE_USER);
+        model.addAttribute("formSearchStudentsUrl", PATH_GET_MAPPING_FILTER_STUDENTS);
+        model.addAttribute("formEnvironmentsUrl", PATH_GET_MAPPING_CREATE_ENVIRONMENT);
+        model.addAttribute("formStudent", PATH_GET_MAPPING_STUDENT);
+        model.addAttribute("formCreateReport", PATH_GET_MAPPING_REPORT);
+        model.addAttribute("index", PATH_GET_MAPPING_INDEX);
     }
 }

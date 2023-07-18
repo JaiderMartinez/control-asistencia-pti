@@ -51,6 +51,7 @@ public class SecretaryController {
     public String showStudentRegistrationForm(Model model) {
         model.addAttribute("studentRequestDto", new StudentRequestDto());
         Constants.addAttributesOfTheMenu(model);
+        model.addAttribute("environments", this.secretaryService.getAllEnvironments());
         return Constants.PATH_TEMPLATE_HTML_FORM_REGISTER_STUDENT;
     }
 
@@ -80,6 +81,7 @@ public class SecretaryController {
             sendAttributeWithMessage(model, e.getMessage());
             return Constants.PATH_TEMPLATE_HTML_FORM_UPDATED_STUDENT;
         }
+        model.addAttribute("environments", this.secretaryService.getAllEnvironments());
         return Constants.PATH_TEMPLATE_HTML_FORM_UPDATED_STUDENT;
     }
 
@@ -92,6 +94,6 @@ public class SecretaryController {
             sendAttributeWithMessage(model, e.getMessage());
             return Constants.PATH_TEMPLATE_HTML_FORM_UPDATED_STUDENT;
         }
-        return "redirect:" + Constants.PATH_GET_MAPPING_STUDENT;
+        return Constants.REDIRECT + Constants.PATH_GET_MAPPING_STUDENT;
     }
 }

@@ -57,7 +57,7 @@ public class AdminController {
 
     @GetMapping(value = "usuario/{dni}/editar")
     @PreAuthorize(value = "hasRole('ADMINISTRADOR')")
-    public String userData(Model model, @PathVariable(name = "dni") Long dniUser) {
+    public String showUserByDni(Model model, @PathVariable(name = "dni") Long dniUser) {
         model.addAttribute(ATTRIBUTE_SAVE_AND_UPDATE_USER, this.adminService.getUserByDni(dniUser));
         Constants.addAttributesOfTheMenu(model);
         return Constants.PATH_TEMPLATE_HTML_EDIT_USER;
@@ -65,7 +65,7 @@ public class AdminController {
 
     @PostMapping(value = "usuario/actualizar")
     @PreAuthorize(value = "hasRole('ADMINISTRADOR')")
-    public String updateUserData(@ModelAttribute(ATTRIBUTE_SAVE_AND_UPDATE_USER) UserSaveRequestDto userSaveRequest, Model model, RedirectAttributes redirectAttributes) {
+    public String updateUser(@ModelAttribute(ATTRIBUTE_SAVE_AND_UPDATE_USER) UserSaveRequestDto userSaveRequest, Model model, RedirectAttributes redirectAttributes) {
         try {
             adminService.updateUserData(userSaveRequest);
             redirectAttributes.addFlashAttribute(Constants.MESSAGE_MODEL_ATTRIBUTE_SUCCESS, String.format(USER_SUCCESSFULLY_UPDATED, userSaveRequest.getDni()));

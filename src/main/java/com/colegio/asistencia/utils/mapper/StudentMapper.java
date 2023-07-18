@@ -4,6 +4,7 @@ import com.colegio.asistencia.dtos.request.StudentRequestDto;
 import com.colegio.asistencia.dtos.response.SearchFoundStudentResponseDto;
 import com.colegio.asistencia.dtos.response.StudentResponse;
 import com.colegio.asistencia.dtos.response.TakeAttendanceEnvironmentResponse;
+import com.colegio.asistencia.models.entity.EnvironmentPtiEntity;
 import com.colegio.asistencia.models.entity.StudentEntity;
 import lombok.experimental.UtilityClass;
 
@@ -20,6 +21,11 @@ public class StudentMapper {
                 .contactNumber(studentRequestDto.getFamilyContactNumber())
                 .residenceAddress(studentRequestDto.getAddress())
                 .birthDate(studentRequestDto.getBirthDate())
+                .environmentPtiEntity(
+                        EnvironmentPtiEntity.builder()
+                                .codePti(studentRequestDto.getCodePti())
+                                .build()
+                )
                 .build();
     }
 
@@ -32,6 +38,7 @@ public class StudentMapper {
                 .grade(studentEntity.getGrade())
                 .familyContactNumber(studentEntity.getContactNumber())
                 .birthDate(studentEntity.getBirthDate())
+                .codePti(studentEntity.getEnvironmentPtiEntity().getCodePti())
                 .build();
     }
 

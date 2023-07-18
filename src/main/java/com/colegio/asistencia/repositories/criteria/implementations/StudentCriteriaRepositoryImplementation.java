@@ -36,7 +36,7 @@ public class StudentCriteriaRepositoryImplementation implements IStudentCriteria
 
         query.select(cb.construct(
                 StudentAttendanceCriteria.class,
-                studentJoin.get("name").alias("nombre"),
+                cb.concat(cb.concat(studentJoin.get("name"), " "), studentJoin.get("lastName")).alias("nombre"),
                 cb.sum(cb.<Integer>selectCase()
                                 .when(cb.equal(attendanceJoin.get(PROPERTY_NAME_ASSISTANCE_TYPE), AttendanceTypeEnum.ASISTENCIA.name()), 1)
                                 .otherwise(0))

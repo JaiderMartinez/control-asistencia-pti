@@ -68,8 +68,8 @@
         }
     </script>
     <body>
-        <header th:include="header :: header" th:with="formUserUrl=${formUserUrl}, formSearchStudentsUrl=${formSearchStudentsUrl}, formEnvironmentsUrl=${formEnvironmentsUrl}, formStudent=${formStudent}, formCreateReport=${formCreateReport}"></header>
 
+    <header th:include="header :: header" th:with="formUserUrl=${formUserUrl}, formSearchStudentsUrl=${formSearchStudentsUrl}, formEnvironmentsUrl=${formEnvironmentsUrl}, formStudent=${formStudent}, formCreateReport=${formCreateReport}, index=${index}"></header>
 
     <form th:object="${studentUpdateRequest}" th:action="@{/asistencia/estudiante/actualizado}" onsubmit="disableButton()"  method="post">
             <fieldset>
@@ -94,7 +94,11 @@
 
                 <label for="fechaNacimiento">fechaNacimiento:</label>
                 <input type="date" th:field="*{birthDate}" id="fechaNacimiento" disabled>
-             
+
+                <select name="codePti" th:field="*{codePti}">
+                    <option value="0">Seleccionar</option>
+                    <option th:each="environment: ${environments}" th:value="${environment.codePti}" th:text="${environment.name}">Ambiente</option>
+                </select>
                 <input type="submit" value="ENVIAR" id="boton-enviar"/>
         
             </fieldset>
@@ -103,6 +107,22 @@
         
     </body>
 </center>
+    <script>
+    window.onload = function() {
+        var selectElement = document.querySelector("select[name='codePti']");
+        var submitButton = document.getElementById("boton-enviar");
+
+        selectElement.addEventListener("input", function() {
+            if (selectElement.value !== "0") {
+                submitButton.disabled = false;
+                errorMessage.style.display = "none";
+            } else {
+                submitButton.disabled = true;
+                errorMessage.style.display = "none";
+            }
+        });
+    }
+    </script>
 </html>
 
 

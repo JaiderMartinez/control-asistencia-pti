@@ -116,7 +116,7 @@ public class TeacherUseCase implements ITeacherService {
 
     private void addAttendanceDataToTable(PdfPTable table, PDFDesigner designerPdf, EnvironmentPtiEntity environmentPtiEntity) {
         this.studentCriteriaRepository.getAllStudentAttendanceDetails(environmentPtiEntity.getCodePti()).forEach(attendance -> {
-            table.addCell(designerPdf.createDataCell(attendance.getStudentName(), BaseColor.WHITE, BaseColor.BLACK));
+            table.addCell(designerPdf.createDataCell(attendance.getStudentNameComplete(), BaseColor.WHITE, BaseColor.BLACK));
             table.addCell(designerPdf.createDataCell(String.valueOf(attendance.getNumberOfAssists()), BaseColor.WHITE, BaseColor.BLACK));
             table.addCell(designerPdf.createDataCell(String.valueOf(attendance.getNumberOfFouls()), BaseColor.WHITE, BaseColor.BLACK));
             table.addCell(designerPdf.createDataCell(String.valueOf(attendance.getAmountOfClassAvoidance()), BaseColor.WHITE, BaseColor.BLACK));

@@ -17,4 +17,5 @@ public class StudentUpdateRequest {
     private String grade;
     private String familyContactNumber;
     private String address;
+    private Long codePti;
 }

@@ -13,9 +13,9 @@ import lombok.Setter;
 @Builder
 public class StudentAttendanceCriteria {
 
-    private String studentName;
-    private long numberOfFouls;
+    private String studentNameComplete;
     private long numberOfAssists;
+    private long numberOfFouls;
     private long amountOfClassAvoidance;
     private long numberOfDelays;
 }

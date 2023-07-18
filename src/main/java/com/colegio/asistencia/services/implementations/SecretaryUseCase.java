@@ -3,6 +3,7 @@ package com.colegio.asistencia.services.implementations;
 import com.colegio.asistencia.dtos.request.CreateEnvironmentPtiRequestDto;
 import com.colegio.asistencia.dtos.request.StudentRequestDto;
 import com.colegio.asistencia.dtos.request.StudentUpdateRequest;
+import com.colegio.asistencia.dtos.response.EnvironmentOfPTIResponseDto;
 import com.colegio.asistencia.dtos.response.StudentResponse;
 import com.colegio.asistencia.exceptions.PersonAlreadyExistsException;
 import com.colegio.asistencia.utils.mapper.EnvironmentMapper;
@@ -21,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -73,6 +75,18 @@ public class SecretaryUseCase implements ISecretaryService {
         studentFound.setGrade(studentUpdateRequest.getGrade());
         studentFound.setContactNumber(studentUpdateRequest.getFamilyContactNumber());
         studentFound.setResidenceAddress(studentUpdateRequest.getAddress());
+        studentFound.setEnvironmentPtiEntity(getEnvironmentPtiEntity(studentUpdateRequest.getCodePti()));
         this.studentRepository.save(studentFound);
+    }
+
+    private EnvironmentPtiEntity getEnvironmentPtiEntity(Long codePti) {
+        return this.environmentPtiRepository.findById(codePti).orElse(null);
+    }
+
+    @Override
+    public List<EnvironmentOfPTIResponseDto> getAllEnvironments() {
+        return this.environmentPtiRepository.findAll().stream()
+                .map(EnvironmentMapper::mapEnvironmentToEnvironmentOfPTIResponseDto)
+                .toList();
     }
 }
