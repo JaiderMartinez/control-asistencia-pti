@@ -36,7 +36,7 @@ public class StudentCriteriaRepositoryImplementation implements IStudentCriteria
 
         query.select(cb.construct(
                 StudentAttendanceCriteria.class,
-                cb.concat(cb.concat(studentJoin.get("name"), " "), studentJoin.get("lastName")).alias("nombre"),
+                studentJoin.get("name").alias("nombre"),
                 cb.sum(cb.<Integer>selectCase()
                                 .when(cb.equal(attendanceJoin.get(PROPERTY_NAME_ASSISTANCE_TYPE), AttendanceTypeEnum.ASISTENCIA.name()), 1)
                                 .otherwise(0))
@@ -60,7 +60,7 @@ public class StudentCriteriaRepositoryImplementation implements IStudentCriteria
         ));
 
         query.where(cb.equal(environmentJoin.get("codePti"), codeEnvironmentPti));
-        query.groupBy(studentJoin.get("name"), studentJoin.get("lastName"));
+        query.groupBy(studentJoin.get("name"));
 
         return entityManager.createQuery(query).getResultList();
     }
